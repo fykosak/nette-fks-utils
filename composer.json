@@ -1,0 +1,23 @@
+{
+  "name": "fykosak/nette-fks-utils",
+  "description": "",
+  "type": "library",
+  "require": {
+    "php": ">=7.4",
+    "nette/di": "^3.0.0",
+    "nette/application": "^3.0.0",
+    "nette/database": "^3.0.0",
+    "ext-pdo": "*"
+  },
+  "authors": [
+    {
+      "name": "FYKOS",
+      "email": "webmaster@fykos.cz"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "Fykosak\\Utils\\": "src/"
+    }
+  }
+}
