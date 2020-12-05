@@ -1,6 +1,6 @@
 <?php
 
-namespace Fykosak\Utils\Components\BaseComponent;
+namespace Fykosak\Utils\BaseComponent;
 
 use Nette\Application\UI\Control;
 use Nette\Application\UI\ITemplate;
@@ -32,9 +32,6 @@ abstract class BaseComponent extends Control {
         $this->getTemplate()->render();
     }
 
-    /**
-     * @return ITemplate
-     */
     protected function createTemplate(): ITemplate {
         /** @var Template $template */
         $template = parent::createTemplate();

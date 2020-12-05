@@ -2,6 +2,7 @@
   "name": "fykosak/nette-fks-utils",
   "description": "",
   "type": "library",
+  "version": "0.0.1a",
   "require": {
     "php": ">=7.4",
     "nette/di": "^3.0.0",
