@@ -7,8 +7,12 @@
     "php": ">=7.4",
     "nette/di": "^3.0.0",
     "nette/application": "^3.0.0",
+    "latte/latte": "^v2.8.0",
     "nette/database": "^3.0.0",
-    "ext-pdo": "*"
+    "nette/forms": "^v3.0.0",
+    "ext-pdo": "*",
+    "ext-json": "*",
+    "ext-gettext": "*"
   },
   "authors": [
     {
