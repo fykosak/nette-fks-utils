@@ -1,6 +1,6 @@
 <?php
 
-namespace Fykosak\Components\BaseComponent;
+namespace Fykosak\Utils\Components\BaseComponent;
 
 use Nette\Application\UI\Control;
 use Nette\Application\UI\ITemplate;
@@ -11,7 +11,6 @@ use Nette\Localization\ITranslator;
 abstract class BaseComponent extends Control {
 
     protected Container $container;
-
     protected ITranslator $translator;
 
     public function __construct(Container $container) {

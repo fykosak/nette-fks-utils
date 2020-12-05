@@ -93,7 +93,7 @@ abstract class AbstractServiceSingle extends Selection {
      */
     public function dispose(AbstractModel $model): void {
         $this->checkType($model);
-        if (!$model->delete() === false) {
+        if (!$model->delete() === 0) {
             $code = $this->context->getConnection()->getPdo()->errorCode();
             throw new ModelException("$code: Error when deleting a model.");
         }
