@@ -17,7 +17,7 @@ use PDOException;
  * @author Michal Koutný <xm.koutny@gmail.com>
  * @author Michal Červeňak <miso@fykos.cz>
  */
-abstract class AbstractServiceSingle extends Selection {
+abstract class AbstractService extends Selection {
 
     private string $modelClassName;
     private string $tableName;

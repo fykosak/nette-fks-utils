@@ -3,6 +3,8 @@
 namespace Fykosak\Utils\FrontEndComponents;
 
 use Nette\Application\AbortException;
+use Nette\Application\UI\InvalidLinkException;
+use Nette\DI\Container;
 use Nette\Http\IRequest;
 use Nette\Http\Response;
 
@@ -11,15 +13,26 @@ use Nette\Http\Response;
  * @author Michal Červeňák <miso@fykos.cz>
  */
 abstract class AjaxComponent extends FrontEndComponent {
-
     private IRequest $request;
+    protected NetteActions $actions;
+
+    public function __construct(Container $container, string $reactId) {
+        parent::__construct($container, $reactId);
+        $this->actions = new NetteActions($this);
+    }
 
     final public function injectRequest(IRequest $request): void {
         $this->request = $request;
     }
 
-    protected function getActions(): array {
-        return [];
+    /**
+     * @param string $key
+     * @param string $destination
+     * @param array $params
+     * @throws InvalidLinkException
+     */
+    public function addAction(string $key, string $destination, array $params = []): void {
+        $this->actions->addAction($key, $destination, $params);
     }
 
     /**
@@ -40,7 +53,7 @@ abstract class AjaxComponent extends FrontEndComponent {
 
     protected function getResponseData(): array {
         $data = parent::getResponseData();
-        $data['actions'] = json_encode($this->getActions());
+        $data['actions'] = $this->actions->serialize();
         return $data;
     }
 }

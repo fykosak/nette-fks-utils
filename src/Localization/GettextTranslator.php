@@ -34,7 +34,7 @@ class GettextTranslator implements Translator {
         setlocale(LC_MESSAGES, $locale);
         setlocale(LC_TIME, $locale);
         bindtextdomain('messages', $this->localeDir);
-        bind_textdomain_codeset('messages', "utf-8");
+        bind_textdomain_codeset('messages', 'utf-8');
         textdomain('messages');
     }
 
