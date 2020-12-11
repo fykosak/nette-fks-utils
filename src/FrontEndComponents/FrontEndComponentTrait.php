@@ -14,7 +14,6 @@ use Nette\Utils\Html;
  * @author Michal Červeňák <miso@fykos.cz>
  */
 trait FrontEndComponentTrait {
-
     private MemoryLogger $logger;
     private static bool $attachedJS = false;
     protected string $reactId;
@@ -57,7 +56,7 @@ trait FrontEndComponentTrait {
     }
 
     /**
-     * @return mixed|null
+     * @return mixed
      */
     protected function getData() {
         return null;
