@@ -5,8 +5,8 @@ namespace Fykosak\Utils\ORM;
 use Fykosak\Utils\ORM\Exceptions\ModelException;
 use InvalidArgumentException;
 use Nette\Database\Connection;
-use Nette\Database\Context;
-use Nette\Database\IConventions;
+use Nette\Database\Conventions;
+use Nette\Database\Explorer;
 use Nette\Database\Table\Selection;
 use Nette\InvalidStateException;
 use PDOException;
@@ -22,7 +22,7 @@ abstract class AbstractService extends Selection {
     private string $modelClassName;
     private string $tableName;
 
-    public function __construct(Context $connection, IConventions $conventions, string $tableName, string $modelClassName) {
+    public function __construct(Explorer $connection, Conventions $conventions, string $tableName, string $modelClassName) {
         $this->tableName = $tableName;
         $this->modelClassName = $modelClassName;
         parent::__construct($connection, $conventions, $tableName);
@@ -107,11 +107,11 @@ abstract class AbstractService extends Selection {
         return $this->context->getConnection();
     }
 
-    public function getContext(): Context {
+    public function getContext(): Explorer {
         return $this->context;
     }
 
-    public function getConventions(): IConventions {
+    public function getConventions(): Conventions {
         return $this->conventions;
     }
 

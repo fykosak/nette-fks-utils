@@ -7,7 +7,7 @@ namespace Fykosak\Utils\Logging;
  *
  * @author Michal Koutný <michal@fykos.cz>
  */
-class DevNullLogger implements ILogger {
+class DevNullLogger implements Logger {
 
     public function log(Message $message): void {
         /* empty */

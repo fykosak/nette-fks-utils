@@ -5,12 +5,12 @@
   "version": "0.0.1a",
   "require": {
     "php": ">=7.4",
-    "nette/utils": "^v3.1.0",
-    "nette/di": "^3.0.0",
-    "nette/application": "^3.0.0",
-    "latte/latte": "^v2.8.0",
-    "nette/database": "^3.0.0",
-    "nette/forms": "^v3.0.0",
+    "nette/utils": "^v3.2.1",
+    "nette/di": "^3.0.7",
+    "nette/application": "^3.1.0",
+    "latte/latte": "^v2.9.2",
+    "nette/database": "^3.1.1",
+    "nette/forms": "^v3.0.7",
     "ext-pdo": "*",
     "ext-json": "*",
     "ext-gettext": "*"

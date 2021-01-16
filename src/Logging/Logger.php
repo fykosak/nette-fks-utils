@@ -8,7 +8,8 @@ namespace Fykosak\Utils\Logging;
  * Implementations may define their own message levels.
  *
  * @author Michal Koutný <michal@fykos.cz>
+ * @author Michal Červeňák <miso@fykos.cz>
  */
-interface ILogger {
+interface Logger {
     public function log(Message $message): void;
 }

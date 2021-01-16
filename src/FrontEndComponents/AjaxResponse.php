@@ -4,7 +4,6 @@ namespace Fykosak\Utils\FrontEndComponents;
 
 use Nette;
 use Nette\Http\IRequest;
-use Nette\Http\IResponse;
 use Nette\Http\Response;
 use Nette\SmartObject;
 
@@ -12,7 +11,7 @@ use Nette\SmartObject;
  * Class ReactResponse
  * @author Michal Červeňák <miso@fykos.cz>
  */
-final class AjaxResponse implements Nette\Application\IResponse {
+final class AjaxResponse implements Nette\Application\Response {
     use SmartObject;
 
     private array $content = [];
@@ -30,7 +29,7 @@ final class AjaxResponse implements Nette\Application\IResponse {
         $this->content = $content;
     }
 
-    public function send(IRequest $httpRequest, IResponse $httpResponse): void {
+    public function send(IRequest $httpRequest, Nette\Http\IResponse $httpResponse): void {
         $httpResponse->setCode($this->code);
         $httpResponse->setContentType($this->getContentType());
         $httpResponse->setExpiration(false);

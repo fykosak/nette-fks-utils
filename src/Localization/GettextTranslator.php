@@ -30,7 +30,7 @@ class GettextTranslator implements Translator {
         }
         $locale = $this->locales[$lang];
 
-        putenv("LANGUAGE=$locale"); // for the sake of CLI tests
+        putenv('LANGUAGE=$locale'); // for the sake of CLI tests
         setlocale(LC_MESSAGES, $locale);
         setlocale(LC_TIME, $locale);
         bindtextdomain('messages', $this->localeDir);
@@ -51,8 +51,8 @@ class GettextTranslator implements Translator {
      * @return string
      */
     public function translate($message, ...$parameters): string {
-        if ($message === "" || $message === null) {
-            return "";
+        if ($message === '' || $message === null) {
+            return '';
         }
         if (isset($parameters[0])) {
             return ngettext($message, $message, (int)$parameters[0]);

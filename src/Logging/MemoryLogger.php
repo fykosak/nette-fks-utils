@@ -7,7 +7,7 @@ namespace Fykosak\Utils\Logging;
  *
  * @author Michal Koutný <michal@fykos.cz>
  */
-class MemoryLogger implements ILogger {
+class MemoryLogger implements Logger {
 
     private array $messages = [];
 

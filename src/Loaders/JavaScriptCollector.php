@@ -7,7 +7,7 @@ namespace Fykosak\Utils\Loaders;
  *
  * @author Michal Koutný <michal@fykos.cz>
  */
-interface IJavaScriptCollector {
+interface JavaScriptCollector {
 
     /**
      * @param string $file path relative to webroot

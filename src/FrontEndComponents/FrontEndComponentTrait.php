@@ -2,7 +2,7 @@
 
 namespace Fykosak\Utils\FrontEndComponents;
 
-use Fykosak\Utils\Loaders\IJavaScriptCollector;
+use Fykosak\Utils\Loaders\JavaScriptCollector;
 use Fykosak\Utils\Logging\MemoryLogger;
 use Fykosak\Utils\Logging\Message;
 use Nette\Application\BadRequestException;
@@ -43,7 +43,7 @@ trait FrontEndComponentTrait {
     }
 
     private function registerMonitor(): void {
-        $this->monitor(IJavaScriptCollector::class, function (IJavaScriptCollector $collector) {
+        $this->monitor(JavaScriptCollector::class, function (JavaScriptCollector $collector) {
             if (!self::$attachedJS) {
                 self::$attachedJS = true;
                 $collector->registerJSFile('js/bundle.min.js');

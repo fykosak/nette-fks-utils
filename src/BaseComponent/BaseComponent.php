@@ -4,11 +4,11 @@ namespace Fykosak\Utils\BaseComponent;
 
 use Fykosak\Utils\Localization\GettextTranslator;
 use Nette\Application\UI\Control;
-use Nette\Application\UI\ITemplate;
-use Nette\Bridges\ApplicationLatte\Template;
+use Nette\Application\UI\Template;
 use Nette\DI\Container;
 
 abstract class BaseComponent extends Control {
+
     protected Container $container;
     protected GettextTranslator $translator;
 
@@ -25,8 +25,7 @@ abstract class BaseComponent extends Control {
         $this->translator = $translator;
     }
 
-    protected function createTemplate(): ITemplate {
-        /** @var Template $template */
+    protected function createTemplate(): Template {
         $template = parent::createTemplate();
         $template->setTranslator($this->translator);
         return $template;
