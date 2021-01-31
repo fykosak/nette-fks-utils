@@ -23,7 +23,7 @@ class NetteActions {
      * @throws InvalidLinkException
      */
     public function addAction(string $key, string $destination, array $params = []): void {
-        $data[$key] = $this->component->link($destination, $params);
+        $this->actions[$key] = $this->component->link($destination, $params);
     }
 
     public function removeAction(string $key): void {

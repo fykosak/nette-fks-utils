@@ -14,6 +14,7 @@ use Nette\Utils\Html;
  * @author Michal Červeňák <miso@fykos.cz>
  */
 trait FrontEndComponentTrait {
+
     private MemoryLogger $logger;
     private static bool $attachedJS = false;
     protected string $reactId;
@@ -62,10 +63,14 @@ trait FrontEndComponentTrait {
         return null;
     }
 
+    protected function configure(): void {
+    }
+
     /**
      * @return string[]
      */
     protected function getResponseData(): array {
+        $this->configure();
         $data['messages'] = array_map(function (Message $value): array {
             return $value->__toArray();
         }, $this->logger->getMessages());
