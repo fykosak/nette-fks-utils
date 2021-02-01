@@ -30,7 +30,7 @@ class GettextTranslator implements Translator {
         }
         $locale = $this->locales[$lang];
 
-        putenv('LANGUAGE=$locale'); // for the sake of CLI tests
+        putenv('LANGUAGE=' . $locale); // for the sake of CLI tests
         setlocale(LC_MESSAGES, $locale);
         setlocale(LC_TIME, $locale);
         bindtextdomain('messages', $this->localeDir);

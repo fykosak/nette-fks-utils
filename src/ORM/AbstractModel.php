@@ -9,10 +9,15 @@ use Nette\Database\Table\Selection;
  * @author Michal Koutný <xm.koutny@gmail.com>
  */
 abstract class AbstractModel extends ActiveRow {
+
     public function __construct(array $data, Selection $table) {
         parent::__construct($data, $table);
     }
 
+    /**
+     * @param ActiveRow $row
+     * @return static
+     */
     public static function createFromActiveRow(ActiveRow $row): self {
         if ($row instanceof static) {
             return $row;
