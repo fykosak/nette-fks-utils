@@ -4,10 +4,6 @@ namespace Fykosak\Utils\Logging;
 
 use Nette\Application\UI\Control;
 
-/**
- * Dump messages from MemoryLogger as flash messaged into given control.
- * @author Michal Koutný <michal@fykos.cz>
- */
 class FlashMessageDump {
 
     public static function dump(Logger $logger, Control $control, bool $clear = true): void {

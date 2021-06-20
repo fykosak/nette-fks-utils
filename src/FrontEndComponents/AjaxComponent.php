@@ -5,14 +5,10 @@ namespace Fykosak\Utils\FrontEndComponents;
 use Nette\Application\AbortException;
 use Nette\Application\UI\InvalidLinkException;
 use Nette\DI\Container;
-use Nette\Http\IRequest;
-use Nette\Http\Response;
+use Nette\Http\{Response, IRequest};
 
-/**
- * Class AjaxComponent
- * @author Michal Červeňák <miso@fykos.cz>
- */
 abstract class AjaxComponent extends FrontEndComponent {
+
     private IRequest $request;
     protected NetteActions $actions;
 

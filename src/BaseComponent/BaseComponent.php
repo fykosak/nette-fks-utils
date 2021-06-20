@@ -3,8 +3,7 @@
 namespace Fykosak\Utils\BaseComponent;
 
 use Fykosak\Utils\Localization\GettextTranslator;
-use Nette\Application\UI\Control;
-use Nette\Application\UI\Template;
+use Nette\Application\UI\{Template, Control};
 use Nette\DI\Container;
 
 abstract class BaseComponent extends Control {

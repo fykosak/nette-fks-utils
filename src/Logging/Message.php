@@ -4,10 +4,6 @@ namespace Fykosak\Utils\Logging;
 
 use Nette\SmartObject;
 
-/**
- * Class Message
- * @author Michal Červeňák <miso@fykos.cz>
- */
 class Message {
     use SmartObject;
 
@@ -16,7 +12,6 @@ class Message {
     public const LVL_SUCCESS = 'success';
     public const LVL_INFO = 'info';
     public const LVL_PRIMARY = 'primary';
-    public const LVL_DEBUG = 'debug';
 
     public string $text;
     public string $level;

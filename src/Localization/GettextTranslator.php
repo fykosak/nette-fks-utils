@@ -4,10 +4,6 @@ namespace Fykosak\Utils\Localization;
 
 use Nette\Localization\Translator;
 
-/**
- *
- * @author Michal Koutný <xm.koutny@gmail.com>
- */
 class GettextTranslator implements Translator {
 
     /** @var array[lang] => locale */

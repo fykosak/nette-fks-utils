@@ -2,11 +2,11 @@
 
 namespace Fykosak\Utils\FrontEndComponents;
 
-use Nette\Application\UI\Component;
-use Nette\Application\UI\InvalidLinkException;
+use Nette\Application\UI\{Component, InvalidLinkException};
 use Nette\SmartObject;
 
 class NetteActions {
+
     use SmartObject;
 
     private array $actions = [];

@@ -3,16 +3,11 @@
 namespace Fykosak\Utils\FrontEndComponents;
 
 use Fykosak\Utils\Loaders\JavaScriptCollector;
-use Fykosak\Utils\Logging\MemoryLogger;
-use Fykosak\Utils\Logging\Message;
+use Fykosak\Utils\Logging\{MemoryLogger, Message};
 use Nette\Application\BadRequestException;
 use Nette\Forms\Controls\BaseControl;
 use Nette\Utils\Html;
 
-/**
- * Trait ReactField
- * @author Michal Červeňák <miso@fykos.cz>
- */
 trait FrontEndComponentTrait {
 
     private MemoryLogger $logger;

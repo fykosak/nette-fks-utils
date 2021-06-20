@@ -6,10 +6,6 @@ use Fykosak\Utils\BaseComponent\BaseComponent;
 use Nette\DI\Container;
 use Nette\Utils\Html;
 
-/**
- * Class FrontEndComponent
- * @author Michal Červeňák <miso@fykos.cz>
- */
 abstract class FrontEndComponent extends BaseComponent {
     use FrontEndComponentTrait;
 
