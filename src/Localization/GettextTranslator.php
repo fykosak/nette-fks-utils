@@ -7,7 +7,7 @@ use Nette\Localization\Translator;
 class GettextTranslator implements Translator {
 
     /** @var array[lang] => locale */
-    private array $locales;
+    public array $locales;
     private string $localeDir;
 
     public function __construct(array $locales, string $localeDir) {
