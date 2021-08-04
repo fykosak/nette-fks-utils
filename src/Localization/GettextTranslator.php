@@ -1,16 +1,20 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Fykosak\Utils\Localization;
 
 use Nette\Localization\Translator;
 
-class GettextTranslator implements Translator {
+class GettextTranslator implements Translator
+{
 
     /** @var array[lang] => locale */
     public array $locales;
     private string $localeDir;
 
-    public function __construct(array $locales, string $localeDir) {
+    public function __construct(array $locales, string $localeDir)
+    {
         $this->locales = $locales;
         $this->localeDir = $localeDir;
     }
@@ -20,7 +24,8 @@ class GettextTranslator implements Translator {
      * @param string $lang ISO 639-1
      * @throws UnsupportedLanguageException
      */
-    public function setLang(string $lang): void {
+    public function setLang(string $lang): void
+    {
         if (!isset($this->locales[$lang])) {
             throw new UnsupportedLanguageException($lang);
         }
@@ -37,7 +42,8 @@ class GettextTranslator implements Translator {
     /**
      * @return string[]
      */
-    public function getSupportedLanguages(): array {
+    public function getSupportedLanguages(): array
+    {
         return array_keys($this->locales);
     }
 
@@ -46,7 +52,8 @@ class GettextTranslator implements Translator {
      * @param array $parameters
      * @return string
      */
-    public function translate($message, ...$parameters): string {
+    public function translate($message, ...$parameters): string
+    {
         if ($message === '' || $message === null) {
             return '';
         }
@@ -63,7 +70,8 @@ class GettextTranslator implements Translator {
      * @param string $lang
      * @return mixed
      */
-    public static function i18nHelper(object $object, string $field, string $lang) {
+    public static function i18nHelper(object $object, string $field, string $lang)
+    {
         return $object->{$field . '_' . $lang};
     }
 }

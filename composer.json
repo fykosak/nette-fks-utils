@@ -3,7 +3,7 @@
   "description": "",
   "type": "library",
   "require": {
-    "php": ">=7.4",
+    "php": ">=7.4 <8.1",
     "nette/utils": "^v3.2.0",
     "nette/di": "^3.0.0",
     "nette/application": "^3.1.0",
@@ -14,12 +14,18 @@
     "ext-json": "*",
     "ext-gettext": "*"
   },
+  "require-dev": {
+    "squizlabs/php_codesniffer": "3.6.0"
+  },
   "authors": [
     {
       "name": "FYKOS",
       "email": "webmaster@fykos.cz"
     }
   ],
+  "scripts": {
+    "testPSR": "php -e vendor/squizlabs/php_codesniffer/bin/phpcs --standard=PSR12 src/"
+  },
   "autoload": {
     "psr-4": {
       "Fykosak\\Utils\\": "src/"

@@ -1,8 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Fykosak\Utils\Loaders;
 
-interface JavaScriptCollector {
+interface JavaScriptCollector
+{
 
     /**
      * @param string $file path relative to webroot
