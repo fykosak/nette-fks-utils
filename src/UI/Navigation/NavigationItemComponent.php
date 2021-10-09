@@ -15,4 +15,14 @@ class NavigationItemComponent extends Control
         $this->template->item = $item;
         $this->template->render(__DIR__ . DIRECTORY_SEPARATOR . 'navigationItem.latte');
     }
+
+    public function isItemVisible(NavItem $item): bool
+    {
+        return true;
+    }
+
+    public function isItemActive(NavItem $item): bool
+    {
+        return false;
+    }
 }
