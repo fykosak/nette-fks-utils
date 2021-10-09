@@ -34,7 +34,7 @@ final class AjaxResponse implements \Nette\Application\Response
     {
         $httpResponse->setCode($this->code);
         $httpResponse->setContentType($this->getContentType());
-        $httpResponse->setExpiration(false);
+        $httpResponse->setExpiration(null);
         echo json_encode($this->content);
     }
 }
