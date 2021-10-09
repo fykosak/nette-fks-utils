@@ -1,0 +1,28 @@
+{varType Fykosak\Utils\UI\Navigation\NavItem $item}
+{if count($item->children)}
+    <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle"
+           href="#" id="navbarDropdown"
+           role="button" data-toggle="dropdown" aria-expanded="false"
+           data-bs-toggle="dropdown">
+            {$item->title->toHtml(false)}
+        </a>
+        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            {foreach $item->children as $children}
+                <li>
+                    <a class="dropdown-item"
+                       href="{plink $children->destination,(expand)$children->linkParams}">
+                        {$children->title->toHtml(false)}
+                    </a>
+                </li>
+            {/foreach}
+        </ul>
+    </li>
+{else}
+    <li class="nav-item">
+        <a class="nav-link" href="{plink $item->destination,(expand)$item->linkParams}"
+           title="{$item->title->title}">
+            {$item->title->toHtml(false)}
+        </a>
+    </li>
+{/if}
