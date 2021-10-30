@@ -1,5 +1,4 @@
 {varType Fykosak\Utils\UI\Navigation\NavItem $item}
-{varType Fykosak\Utils\UI\Navigation\NavigationItemComponent $control}
 {block content}
     {if count($item->children)}
         <li class="nav-item dropdown">
@@ -11,9 +10,8 @@
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                 {foreach $item->children as $children}
-                    {continueIf !$control->isItemVisible($children)}
                     <li>
-                        <a class="{$control->isItemActive($children)?'dropdown-item active':'dropdown-item'}"
+                        <a class="{$children->active?'dropdown-item active':'dropdown-item'}"
                            href="{plink $children->destination,(expand)$children->linkParams}">
                             {$children->title->toHtml(false)}
                         </a>

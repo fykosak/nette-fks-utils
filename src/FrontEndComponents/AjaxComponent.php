@@ -7,7 +7,7 @@ namespace Fykosak\Utils\FrontEndComponents;
 use Nette\Application\AbortException;
 use Nette\Application\UI\InvalidLinkException;
 use Nette\DI\Container;
-use Nette\Http\{IRequest, Response};
+use Nette\Http\{IRequest, IResponse};
 
 abstract class AjaxComponent extends FrontEndComponent
 {
@@ -42,7 +42,7 @@ abstract class AjaxComponent extends FrontEndComponent
      * @return void
      * @throws AbortException
      */
-    protected function sendAjaxResponse(int $code = Response::S200_OK): void
+    protected function sendAjaxResponse(int $code = IResponse::S200_OK): void
     {
         $response = new AjaxResponse();
         $response->setCode($code);

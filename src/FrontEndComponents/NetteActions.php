@@ -7,7 +7,7 @@ namespace Fykosak\Utils\FrontEndComponents;
 use Nette\Application\UI\{Component, InvalidLinkException};
 use Nette\SmartObject;
 
-class NetteActions
+final class NetteActions
 {
     use SmartObject;
 
@@ -35,7 +35,7 @@ class NetteActions
         unset($this->actions[$key]);
     }
 
-    public function hasAction($key): bool
+    public function hasAction(string $key): bool
     {
         return isset($this->actions[$key]);
     }
