@@ -3,7 +3,9 @@
 declare(strict_types=1);
 
 namespace Fykosak\Utils\Loaders;
-
+/**
+ * @deprecated
+ */
 interface StylesheetCollector
 {
 

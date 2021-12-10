@@ -23,7 +23,7 @@ class PageTitle extends Title
         $container = parent::toHtml();
         if ($includeSubHeadline && $this->subTitle) {
             $container->addHtml(
-                Html::el('small')->addAttributes(['class' => 'ml-2 text-secondary small'])->addText($this->subTitle)
+                Html::el('small')->addAttributes(['class' => 'ml-2 ms-2 text-secondary small'])->addText($this->subTitle)
             );
         }
         return $container;

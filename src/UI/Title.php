@@ -22,7 +22,7 @@ class Title
     {
         $container = Html::el('span');
         if ($this->icon) {
-            $container->addHtml(Html::el('i')->addAttributes(['class' => $this->icon . ' mr-2']));
+            $container->addHtml(Html::el('i')->addAttributes(['class' => $this->icon . ' mr-2 me-2']));
         }
         $container->addText($this->title);
         return $container;

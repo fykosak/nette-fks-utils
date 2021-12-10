@@ -69,6 +69,7 @@ class GettextTranslator implements Translator
      * @param string $field
      * @param string $lang
      * @return mixed
+     * @deprecated not working properly with nette/database
      */
     public static function i18nHelper(object $object, string $field, string $lang)
     {

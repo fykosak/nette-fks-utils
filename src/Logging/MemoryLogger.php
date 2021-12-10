@@ -6,7 +6,6 @@ namespace Fykosak\Utils\Logging;
 
 class MemoryLogger implements Logger
 {
-
     private array $messages = [];
 
     /**
