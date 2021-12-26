@@ -13,11 +13,11 @@ class NavItem
 
     /** @param NavItem[] $children */
     public function __construct(
-        public readonly Title $title,
-        public readonly string $destination = '#',
-        public readonly array $linkParams = [],
-        public readonly array $children = [],
-        public readonly bool $active = false
+        public Title $title,
+        public string $destination = '#',
+        public array $linkParams = [],
+        public array $children = [],
+        public bool $active = false
     ) {
     }
 }

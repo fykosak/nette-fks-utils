@@ -12,7 +12,7 @@ class PageTitle extends Title
         string $title,
         ?string $icon = null,
         ?string $id = null,
-        public readonly ?string $subTitle = null,
+        public ?string $subTitle = null,
     ) {
         parent::__construct($title, $icon, $id);
     }
