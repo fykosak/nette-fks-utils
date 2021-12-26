@@ -49,8 +49,6 @@ class GettextTranslator implements Translator
 
     /**
      * @param mixed|string $message
-     * @param array $parameters
-     * @return string
      */
     public function translate($message, ...$parameters): string
     {
@@ -62,17 +60,5 @@ class GettextTranslator implements Translator
         } else {
             return gettext($message);
         }
-    }
-
-    /**
-     * @param object $object
-     * @param string $field
-     * @param string $lang
-     * @return mixed
-     * @deprecated not working properly with nette/database
-     */
-    public static function i18nHelper(object $object, string $field, string $lang)
-    {
-        return $object->{$field . '_' . $lang};
     }
 }
