@@ -10,13 +10,11 @@ use Nette\DI\Container;
 
 abstract class BaseComponent extends Control
 {
-
-    protected Container $container;
     protected GettextTranslator $translator;
 
-    public function __construct(Container $container)
-    {
-        $this->container = $container;
+    public function __construct(
+        protected readonly Container $container,
+    ) {
         $container->callInjects($this);
     }
 

@@ -11,13 +11,10 @@ class Message
 {
     use SmartObject;
 
-    public string|Html $text;
-    public MessageLevel $level;
-
-    public function __construct(string|Html $message, MessageLevel $level)
-    {
-        $this->text = $message;
-        $this->level = $level;
+    public function __construct(
+        public readonly string|Html $text,
+        public readonly MessageLevel $level,
+    ) {
     }
 
     public function __toArray(): array
