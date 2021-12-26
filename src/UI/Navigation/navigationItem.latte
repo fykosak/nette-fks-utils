@@ -1,14 +1,15 @@
 {varType Fykosak\Utils\UI\Navigation\NavItem $item}
 {block content}
     {if count($item->children)}
+        {var $id = Nette\Utils\Random::generate()}
         <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle"
-               href="#" id="navbarDropdown"
+               href="#" id="{$id}"
                role="button" data-toggle="dropdown" aria-expanded="false"
                data-bs-toggle="dropdown">
                 {$item->title->toHtml(false)}
             </a>
-            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <ul class="dropdown-menu" aria-labelledby="{$id}">
                 {foreach $item->children as $children}
                     <li>
                         <a class="{$children->active?'dropdown-item active':'dropdown-item'}"

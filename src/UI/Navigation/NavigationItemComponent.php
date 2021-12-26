@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Fykosak\Utils\UI\Navigation;
 
 use Fykosak\Utils\BaseComponent\BaseComponent;

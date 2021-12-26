@@ -11,11 +11,13 @@ class Title
     public string $title;
 
     public ?string $icon;
+    public ?string $id;
 
-    public function __construct(string $title, ?string $icon = null)
+    public function __construct(?string $id, string $title, ?string $icon = null)
     {
         $this->title = $title;
         $this->icon = $icon;
+        $this->id = $id;
     }
 
     public function toHtml(): Html
