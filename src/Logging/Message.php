@@ -29,7 +29,6 @@ class Message
     {
         return [
             'text' => $this->text,
-            'message' => $this->text,
             'level' => $this->level,
         ];
     }

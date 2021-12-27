@@ -8,7 +8,6 @@ use Nette\Application\UI\Control;
 
 class FlashMessageDump
 {
-
     public static function dump(Logger $logger, Control $control, bool $clear = true): void
     {
         if ($logger instanceof MemoryLogger) {
