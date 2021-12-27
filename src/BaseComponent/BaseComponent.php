@@ -10,7 +10,6 @@ use Nette\DI\Container;
 
 abstract class BaseComponent extends Control
 {
-
     protected Container $container;
     protected GettextTranslator $translator;
 
