@@ -15,7 +15,7 @@ class TestCurrency extends BaseTest
 {
     public function testCreateNonExist(): void
     {
-        Assert::exception(fn() => new Currency('XBT'), \ValueError::class);
+        Assert::exception(fn() => new Currency('XBT'), \Exception::class);
     }
 
     public function testCases(): void
@@ -39,7 +39,7 @@ class TestCurrency extends BaseTest
 
     public function testFromNonExists(): void
     {
-        Assert::exception(fn() => Currency::from('XBT'), \ValueError::class);
+        Assert::exception(fn() => Currency::from('XBT'), \Exception::class);
     }
 
     public function testTryFromNonExists(): void

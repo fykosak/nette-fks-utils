@@ -14,10 +14,13 @@ final class Currency
 
     public string $value;
 
+    /**
+     * @throws \Exception
+     */
     public function __construct(string $currency)
     {
         if (!in_array($currency, [self::EUR, self::CZK])) {
-            throw new \ValueError();
+            throw new \Exception();
         }
         $this->value = $currency;
     }
@@ -31,11 +34,14 @@ final class Currency
     {
         try {
             return new self($currency);
-        } catch (\Throwable$exception) {
+        } catch (\Throwable $exception) {
             return null;
         }
     }
 
+    /**
+     * @throws \Exception
+     */
     public static function from(string $currency): self
     {
         return new self($currency);
