@@ -4,11 +4,15 @@ declare(strict_types=1);
 
 namespace Fykosak\Utils\Price;
 
+use Nette\SmartObject;
+
 /**
  * something like enum :)
  */
 final class Currency
 {
+    use SmartObject;
+
     public const EUR = 'eur';
     public const CZK = 'czk';
 
@@ -47,9 +51,6 @@ final class Currency
         return new self($currency);
     }
 
-    /**
-     * @throws UnsupportedCurrencyException
-     */
     public function getLabel(): string
     {
         switch ($this->value) {
@@ -57,14 +58,10 @@ final class Currency
                 return '€';
             case self::CZK:
                 return 'Kč';
-            default:
-                throw new UnsupportedCurrencyException($this);
         }
+        return '';
     }
 
-    /**
-     * @throws UnsupportedCurrencyException
-     */
     public function format(float $amount): string
     {
         return \sprintf('%1.2f %s', $amount, $this->getLabel());

@@ -32,6 +32,30 @@ class TestMultiPrice extends BaseTest
         Assert::null($anotherPrice);
     }
 
+    public function testGetAccess(): void
+    {
+        $multiPrice = new MultiCurrencyPrice(
+            [
+                new Price(Currency::from(Currency::CZK), 4),
+            ]
+        );
+        Assert::type(Price::class, $multiPrice->czk);
+        Assert::null($multiPrice->eur);
+    }
+
+    public function testSetAccess(): void
+    {
+        $multiPrice = new MultiCurrencyPrice(
+            [
+                new Price(Currency::from(Currency::CZK), 4),
+            ]
+        );
+        $multiPrice->czk = new Price(Currency::from(Currency::CZK), 2);
+        Assert::type(Price::class, $multiPrice->czk);
+        Assert::same(2.0, $multiPrice->czk->getAmount());
+        Assert::exception(fn() => $multiPrice->czk = new Price(Currency::from(Currency::EUR)), \Exception::class);
+    }
+
     public function testCreateSum(): void
     {
         $multiPrice1 = new MultiCurrencyPrice([new Price(Currency::from(Currency::CZK), 2)]);

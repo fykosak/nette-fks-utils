@@ -4,8 +4,12 @@ declare(strict_types=1);
 
 namespace Fykosak\Utils\Price;
 
+use Nette\SmartObject;
+
 class Price
 {
+    use SmartObject;
+
     private Currency $currency;
     private float $amount;
 
@@ -41,9 +45,6 @@ class Price
         $this->amount += $amount;
     }
 
-    /**
-     * @throws UnsupportedCurrencyException
-     */
     public function __toString(): string
     {
         return $this->currency->format($this->amount);
