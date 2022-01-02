@@ -19,63 +19,64 @@ class TestMultiPrice extends BaseTest
     public function testCreateEmpty(): void
     {
         $multiPrice = new MultiCurrencyPrice();
-        $price = $multiPrice->getPrice(Currency::from(Currency::CZK));
-        Assert::null($price);
+        Assert::exception(fn() => $multiPrice->czk, \OutOfRangeException::class);
     }
 
     public function testCreateFilled(): void
     {
         $multiPrice = new MultiCurrencyPrice([new Price(Currency::from(Currency::CZK))]);
-        $price = $multiPrice->getPrice(Currency::from(Currency::CZK));
+        $price = $multiPrice->czk;
         Assert::type(Price::class, $price);
-        $anotherPrice = $multiPrice->getPrice(Currency::from(Currency::EUR));
-        Assert::null($anotherPrice);
     }
 
     public function testGetAccess(): void
     {
-        $multiPrice = new MultiCurrencyPrice(
-            [
-                new Price(Currency::from(Currency::CZK), 4),
-            ]
-        );
+        $multiPrice = new MultiCurrencyPrice([new Price(Currency::from(Currency::CZK), 4),]);
         Assert::type(Price::class, $multiPrice->czk);
-        Assert::null($multiPrice->eur);
+        Assert::exception(fn() => $multiPrice->eur, \OutOfRangeException::class);
     }
 
     public function testSetAccess(): void
     {
-        $multiPrice = new MultiCurrencyPrice(
-            [
-                new Price(Currency::from(Currency::CZK), 4),
-            ]
-        );
+        $multiPrice = new MultiCurrencyPrice([new Price(Currency::from(Currency::CZK), 4),]);
         $multiPrice->czk = new Price(Currency::from(Currency::CZK), 2);
         Assert::type(Price::class, $multiPrice->czk);
         Assert::same(2.0, $multiPrice->czk->getAmount());
-        Assert::exception(fn() => $multiPrice->czk = new Price(Currency::from(Currency::EUR)), \Exception::class);
+
+        Assert::exception(
+            fn() => $multiPrice->czk = new Price(Currency::from(Currency::EUR)),
+            \OutOfRangeException::class
+        );
+        Assert::exception(
+            fn() => $multiPrice->eur = new Price(Currency::from(Currency::EUR)),
+            \OutOfRangeException::class
+        );
     }
 
     public function testCreateSum(): void
     {
         $multiPrice1 = new MultiCurrencyPrice([new Price(Currency::from(Currency::CZK), 2)]);
-        $eurPriceBefore = new Price(Currency::from(Currency::EUR), 4);
         $multiPrice2 = new MultiCurrencyPrice(
             [
                 new Price(Currency::from(Currency::CZK), 1),
-                $eurPriceBefore,
+                new Price(Currency::from(Currency::EUR), 4),
             ]
         );
 
         $multiPrice1->add($multiPrice2);
-        $eurPrice = $multiPrice1->getPrice(Currency::from(Currency::EUR));
-        Assert::type(Price::class, $eurPrice);
-        Assert::notSame($eurPriceBefore, $eurPrice);
-        Assert::same(4.0, $eurPrice->getAmount());
 
-        $czkPrice = $multiPrice1->getPrice(Currency::from(Currency::CZK));
-        Assert::type(Price::class, $czkPrice);
-        Assert::same(3.0, $czkPrice->getAmount());
+        Assert::exception(
+            fn() => $multiPrice1->eur,
+            \OutOfRangeException::class
+        ); // still unset
+
+        Assert::type(Price::class, $multiPrice1->czk);
+        Assert::same(3.0, $multiPrice1->czk->getAmount());
+
+        Assert::exception(
+            fn() => $multiPrice2->add($multiPrice1),
+            \OutOfRangeException::class
+        );
     }
 }
 

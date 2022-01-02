@@ -26,4 +26,9 @@ class LocalizedSting
     {
         $this->texts[$lang] = $text;
     }
+
+    public function __toString(): string
+    {
+        return join('/', $this->texts);
+    }
 }

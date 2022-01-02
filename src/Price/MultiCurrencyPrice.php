@@ -6,62 +6,60 @@ namespace Fykosak\Utils\Price;
 
 use Nette\SmartObject;
 
-class MultiCurrencyPrice
+final class MultiCurrencyPrice
 {
     use SmartObject;
 
     /** @var Price[] */
-    protected array $prices;
+    private array $prices;
 
     public function __construct(?array $prices = [])
     {
         foreach ($prices as $price) {
-            $this->addPrice($price);
+            $this->prices[$price->getCurrency()->value] = $price;
         }
     }
 
     /**
-     * @throws \Exception
+     * @param Currency[] $currencies
+     * @return static
      */
-    public function __get(string $name): ?Price
+    public static function createFromCurrencies(array $currencies): self
     {
-        return $this->getPrice(Currency::from($name));
+        $data = [];
+        foreach ($currencies as $currency) {
+            $data[] = new Price($currency);
+        }
+        return new self($data);
     }
 
-    /**
-     * @throws \Exception
-     */
+    public function __get(string $name): ?Price
+    {
+        if (!isset($this->prices[$name])) {
+            throw new \OutOfRangeException(sprintf(_('Price for currency "%s" does not exists'), $name));
+        }
+        return $this->prices[$name];
+    }
+
     public function __set(string $name, Price $value): void
     {
         if ($value->getCurrency()->value !== $name) {
-            throw new \Exception();
+            throw new \OutOfRangeException(sprintf(_('Currency "%s" does not match'), $name));
         }
-        $this->addPrice($value, true);
+        if (!isset($this->prices[$value->getCurrency()->value])) {
+            throw new \OutOfRangeException(sprintf(_('Price for the currency "%s" does not exists'), $name));
+        }
+        $this->prices[$value->getCurrency()->value] = $value;
     }
 
-    /**
-     * @throws \LogicException
-     */
     public function add(self $multiPrice): void
     {
-        foreach ($multiPrice->prices as $key => $price) {
-            if (isset($this->prices[$key])) {
-                $this->prices[$key]->add($price);
-            } else {
-                $this->addPrice(clone $price);
-            }
+        $results = array_diff(array_keys($this->prices), array_keys($multiPrice->prices));
+        if ($results) {
+            throw new \OutOfRangeException(sprintf(_('Currencies "%s" is not present'), join(', ', $results)));
         }
-    }
-
-    public function getPrice(Currency $currency): ?Price
-    {
-        return $this->prices[$currency->value] ?? null;
-    }
-
-    public function addPrice(Price $price, bool $overwrite = false): void
-    {
-        if (!isset($this->prices[$price->getCurrency()->value]) || $overwrite) {
-            $this->prices[$price->getCurrency()->value] = $price;
+        foreach ($this->prices as $key => $price) {
+            $this->prices[$key]->add($multiPrice->{$key});
         }
     }
 }

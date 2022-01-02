@@ -6,7 +6,7 @@ namespace Fykosak\Utils\Price;
 
 use Nette\SmartObject;
 
-class Price
+final class Price
 {
     use SmartObject;
 
