@@ -54,10 +54,6 @@ final class MultiCurrencyPrice
 
     public function add(self $multiPrice): void
     {
-        $results = array_diff(array_keys($this->prices), array_keys($multiPrice->prices));
-        if ($results) {
-            throw new \OutOfRangeException(sprintf(_('Currencies "%s" is not present'), join(', ', $results)));
-        }
         foreach ($this->prices as $key => $price) {
             $this->prices[$key]->add($multiPrice->{$key});
         }
