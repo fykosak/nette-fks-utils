@@ -1,6 +1,5 @@
 # FKS utils for nette 
-![Lines of code](https://img.shields.io/tokei/lines/github/fykosak/nette-fks-utils) \
-![GitHub branch checks state](https://img.shields.io/github/checks-status/fykosak/nette-fks-utils/master)
+![Lines of code](https://img.shields.io/tokei/lines/github/fykosak/nette-fks-utils)![PHP](https://github.com/fykosak/nette-fks-utils/actions/workflows/php.yml/badge.svg)![PSR-12](https://github.com/fykosak/nette-fks-utils/actions/workflows/php-psr.yml/badge.svg)
 
 ## Currency & Price
 ### Currency.php
