@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Fykosak\Utils\BaseComponent;
 
-use Fykosak\Utils\Localization\GettextTranslator;
 use Nette\Application\UI\{Control, Template};
 use Nette\DI\Container;
+use Nette\Localization\Translator;
 
 abstract class BaseComponent extends Control
 {
-    protected GettextTranslator $translator;
+    protected ?Translator $translator;
 
     public function __construct(
         protected readonly Container $container,
@@ -23,7 +23,7 @@ abstract class BaseComponent extends Control
         return $this->container;
     }
 
-    public function injectTranslator(GettextTranslator $translator): void
+    public function injectTranslator(?Translator $translator): void
     {
         $this->translator = $translator;
     }

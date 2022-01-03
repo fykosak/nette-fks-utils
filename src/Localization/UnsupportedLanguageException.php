@@ -4,11 +4,10 @@ declare(strict_types=1);
 
 namespace Fykosak\Utils\Localization;
 
-use Nette\Application\BadRequestException;
 use Nette\Http\IResponse;
 use Throwable;
 
-class UnsupportedLanguageException extends BadRequestException
+class UnsupportedLanguageException extends \Exception
 {
     public function __construct(string $lang, ?Throwable $previous = null)
     {

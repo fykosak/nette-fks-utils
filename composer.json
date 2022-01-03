@@ -2,6 +2,7 @@
   "name": "fykosak/nette-fks-utils",
   "description": "",
   "type": "library",
+  "license": "GPL-3.0-or-later",
   "require": {
     "php": ">=8.1",
     "nette/utils": "^v3.2.0",
@@ -15,7 +16,8 @@
     "ext-gettext": "*"
   },
   "require-dev": {
-    "squizlabs/php_codesniffer": "3.6.0"
+    "squizlabs/php_codesniffer": "3.6.0",
+    "nette/tester": "^v2.4.0"
   },
   "authors": [
     {
@@ -24,11 +26,20 @@
     }
   ],
   "scripts": {
-    "testPSR": "php -e vendor/squizlabs/php_codesniffer/bin/phpcs --standard=PSR12 src/"
+    "testPSR": "php -e vendor/squizlabs/php_codesniffer/bin/phpcs --standard=PSR12 src/",
+    "test": [
+      "rm -rf test/tmp/",
+      "vendor/bin/tester tests -p php -s -c tests/php.ini -j 1"
+    ],
+    "testCoverage": [
+      "rm -rf test/tmp/",
+      "vendor/bin/tester tests -p php --coverage coverage.html --coverage-src src/ -s -c tests/php.ini -j 1"
+    ]
   },
   "autoload": {
     "psr-4": {
-      "Fykosak\\Utils\\": "src/"
+      "Fykosak\\Utils\\": "src/",
+      "Fykosak\\Utils\\Tests\\": "tests/Tests"
     }
   }
 }
