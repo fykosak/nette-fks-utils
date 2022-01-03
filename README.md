@@ -1,4 +1,7 @@
 # FKS utils for nette 
+![Lines of code](https://img.shields.io/tokei/lines/github/fykosak/nette-fks-utils) \
+![GitHub branch checks state](https://img.shields.io/github/checks-status/fykosak/nette-fks-utils/master)
+
 ## Currency & Price
 ### Currency.php
 Something like enum :) Methods `cases`, `tryFrom`, `try` and property `value` similar like PHP 8.1 enum.
