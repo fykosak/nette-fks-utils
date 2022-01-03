@@ -14,7 +14,7 @@ Method `__toString` is only delegate to `Currency::format()`.
 
 ### MultiCurrencyPrice
 Represent container for price in more Currencies at the same time.
-####Base usage
+#### Base usage
 ```php
 $multiPrice = new MultiCurrencyPrice([new Price(Currency::from(Currency::CZK), 4)]); // Create container with only CZK price and amout 4.0 CZK
 $multiPrice->czk; // Price can be access wia magic __get, an key is ISO 4217 3char code and return Price object
@@ -43,7 +43,7 @@ $multiPrice1->czk->getAmount(); // is 3.0 call add on Prices
 $multiPrice2->add($multiPrice1); // thow exeption because $multiprice1 no contain eur, so $multiprice2 is not a subset of $multiprice1
 
 ```
-##BaseComponent
+## BaseComponent
 
 BaseComponent represent nette `Nette\Application\UI\Control` with possibility use nette/DI inject like in Presenters.
 
