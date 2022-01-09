@@ -84,9 +84,9 @@ final class MultiCurrencyPrice
         $this->setPrice($value);
     }
 
-    public function __toString(string $delimiter = '/'): string
+    public function __toString(): string
     {
-        return join($delimiter, array_map(fn($price) => $price->__toString(), $this->prices));
+        return join('/', array_map(fn($price) => $price->__toString(), $this->prices));
     }
 
     public function __serialize(): array
