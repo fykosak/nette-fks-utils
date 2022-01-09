@@ -49,4 +49,12 @@ final class Price
     {
         return $this->currency->format($this->amount);
     }
+
+    public function __serialize(): array
+    {
+        return [
+            'currency' => $this->currency->value,
+            'amount' => $this->amount,
+        ];
+    }
 }

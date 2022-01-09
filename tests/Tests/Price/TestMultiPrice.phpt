@@ -45,7 +45,7 @@ class TestMultiPrice extends BaseTest
 
         Assert::exception(
             fn() => $multiPrice->czk = new Price(Currency::from(Currency::EUR)),
-            \OutOfRangeException::class
+            \LogicException::class
         );
         Assert::exception(
             fn() => $multiPrice->eur = new Price(Currency::from(Currency::EUR)),

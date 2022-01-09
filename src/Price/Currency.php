@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Fykosak\Utils\Price;
 
+use Nette\NotImplementedException;
 use Nette\SmartObject;
 
 /**
@@ -19,12 +20,12 @@ final class Currency
     public string $value;
 
     /**
-     * @throws \Exception
+     * @throws NotImplementedException
      */
     public function __construct(string $currency)
     {
         if (!in_array($currency, [self::EUR, self::CZK])) {
-            throw new \Exception();
+            throw new NotImplementedException(sprintf(_('Currency "%s" is not supported'), $currency));
         }
         $this->value = $currency;
     }
@@ -38,13 +39,13 @@ final class Currency
     {
         try {
             return new self($currency);
-        } catch (\Throwable $exception) {
+        } catch (NotImplementedException $exception) {
             return null;
         }
     }
 
     /**
-     * @throws \Exception
+     * @throws NotImplementedException
      */
     public static function from(string $currency): self
     {
