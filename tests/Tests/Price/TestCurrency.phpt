@@ -29,6 +29,8 @@ class TestCurrency extends BaseTest
     {
         $currency = Currency::from(Currency::CZK);
         Assert::type(Currency::class, $currency);
+        $currencyLower = Currency::from('czk');
+        Assert::type(Currency::class, $currencyLower);
     }
 
     public function testTryFromExists(): void

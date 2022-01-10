@@ -14,8 +14,8 @@ final class Currency
 {
     use SmartObject;
 
-    public const EUR = 'eur';
-    public const CZK = 'czk';
+    public const EUR = 'EUR';
+    public const CZK = 'CZK';
 
     public string $value;
 
@@ -24,6 +24,7 @@ final class Currency
      */
     public function __construct(string $currency)
     {
+        $currency = strtoupper($currency);
         if (!in_array($currency, [self::EUR, self::CZK])) {
             throw new NotImplementedException(sprintf(_('Currency "%s" is not supported'), $currency));
         }

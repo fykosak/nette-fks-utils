@@ -78,6 +78,7 @@ final class MultiCurrencyPrice
 
     public function __set(string $name, Price $value): void
     {
+        $name = strtoupper($name);
         if ($value->getCurrency()->value !== $name) {
             throw new \LogicException(sprintf(_('Currency "%s" does not match'), $name));
         }
