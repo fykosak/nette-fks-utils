@@ -1,0 +1,18 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Fykosak\Utils\ValuePrinters;
+
+use Nette\Utils\Html;
+
+class StringPrinter extends AbstractValuePrinter
+{
+    /***
+     * @param string $value
+     */
+    protected function getHtml($value): Html
+    {
+        return Html::el('span')->addText($value);
+    }
+}

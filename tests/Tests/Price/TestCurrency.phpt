@@ -49,12 +49,6 @@ class TestCurrency extends BaseTest
         $currency = Currency::tryFrom('XBT');
         Assert::null($currency);
     }
-
-    public function testRender(): void
-    {
-        $currency = new Currency(Currency::CZK);
-        Assert::same('2.00 Kč', $currency->format(2.0));
-    }
 }
 
 $test = new TestCurrency(FakeBootstrap::createContainer());

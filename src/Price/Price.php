@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Fykosak\Utils\Price;
 
 use Nette\SmartObject;
+use Nette\Utils\Html;
 
 final class Price
 {
@@ -45,9 +46,14 @@ final class Price
         $this->amount += $amount;
     }
 
-    public function __toString(): string
+    public function format(): Html
     {
         return $this->currency->format($this->amount);
+    }
+
+    public function __toString(): string
+    {
+        return $this->format()->render();
     }
 
     public function __serialize(): array
