@@ -11,7 +11,7 @@ final class MultiCurrencyPrice
     use SmartObject;
 
     /** @var Price[] */
-    private array $prices;
+    private array $prices = [];
 
     public function __construct(?array $prices = [])
     {
