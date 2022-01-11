@@ -36,6 +36,12 @@ class TestPrice extends BaseTest
         $price1->addAmount(3.5);
         Assert::same(5.5, $price1->getAmount());
     }
+
+    public function testRender(): void
+    {
+        $currency = new Price(new Currency(Currency::CZK), 2.0);
+        Assert::same('<span>2.00&#8287;Kč</span>', $currency->format()->render());
+    }
 }
 
 $test = new TestPrice(FakeBootstrap::createContainer());

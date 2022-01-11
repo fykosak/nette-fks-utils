@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace Fykosak\Utils\Price;
 
+use Fykosak\Utils\ValuePrinters\NumberPrinter;
 use Nette\NotImplementedException;
 use Nette\SmartObject;
+use Nette\Utils\Html;
 
 /**
  * something like enum :)
@@ -64,8 +66,15 @@ final class Currency
         return '';
     }
 
-    public function format(float $amount): string
+    public function format(float $amount): Html
     {
-        return \sprintf('%1.2f %s', $amount, $this->getLabel());
+        return (new NumberPrinter(
+            null,
+            $this->getLabel(),
+            2,
+            NumberPrinter::NULL_VALUE_ZERO
+        ))(
+            $amount
+        );
     }
 }
