@@ -73,7 +73,7 @@ final class MultiCurrencyPrice
 
     public function __get(string $name): ?Price
     {
-        return $this->getPrice(Currency::from($name));
+        return $this->getPrice(Currency::from(strtoupper($name)));
     }
 
     public function __set(string $name, Price $value): void

@@ -11,24 +11,13 @@ class NavItem
 {
     use SmartObject;
 
-    public string $destination;
-    public array $linkParams;
-    public Title $title;
-    /** @var NavItem[] */
-    public array $children;
-    public bool $active;
-
     public function __construct(
-        Title $title,
-        string $destination = '#',
-        array $linkParams = [],
-        array $children = [],
-        bool $active = false
+        public readonly Title $title,
+        public readonly string $destination = '#',
+        public readonly array $linkParams = [],
+        /** @var NavItem[] */
+        public readonly array $children = [],
+        public readonly bool $active = false
     ) {
-        $this->active = $active;
-        $this->destination = $destination;
-        $this->linkParams = $linkParams;
-        $this->title = $title;
-        $this->children = $children;
     }
 }

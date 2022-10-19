@@ -10,13 +10,11 @@ final class Price
 {
     use SmartObject;
 
-    private Currency $currency;
     private float $amount;
 
-    public function __construct(Currency $currency, ?float $amount = null)
+    public function __construct(private readonly Currency $currency, ?float $amount = null)
     {
         $this->amount = $amount ?? 0;
-        $this->currency = $currency;
     }
 
     /**

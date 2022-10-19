@@ -8,15 +8,10 @@ use Nette\Localization\Translator;
 
 class GettextTranslator implements Translator
 {
-
-    /** @var array[lang] => locale */
-    public array $locales;
-    private string $localeDir;
-
-    public function __construct(array $locales, string $localeDir)
-    {
-        $this->locales = $locales;
-        $this->localeDir = $localeDir;
+    public function __construct(
+        public readonly array $locales,
+        public readonly string $localeDir
+    ) {
     }
 
     /**
