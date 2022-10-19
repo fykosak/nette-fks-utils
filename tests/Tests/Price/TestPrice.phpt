@@ -16,8 +16,8 @@ class TestPrice extends BaseTest
 {
     public function testAddSame(): void
     {
-        $price1 = new Price(new Currency(Currency::CZK), 2);
-        $price2 = new Price(new Currency(Currency::CZK), 4);
+        $price1 = new Price(Currency::CZK, 2);
+        $price2 = new Price(Currency::CZK, 4);
         $price1->add($price2);
         Assert::same(6.0, $price1->getAmount());
         Assert::same(4.0, $price2->getAmount());
@@ -25,14 +25,14 @@ class TestPrice extends BaseTest
 
     public function testNotSame(): void
     {
-        $price1 = new Price(new Currency(Currency::CZK), 2);
-        $price2 = new Price(new Currency(Currency::EUR), 4);
+        $price1 = new Price(Currency::CZK, 2);
+        $price2 = new Price(Currency::EUR, 4);
         Assert::exception(fn() => $price1->add($price2), \LogicException::class);
     }
 
     public function testAdd(): void
     {
-        $price1 = new Price(new Currency(Currency::CZK), 2);
+        $price1 = new Price(Currency::CZK, 2);
         $price1->addAmount(3.5);
         Assert::same(5.5, $price1->getAmount());
     }

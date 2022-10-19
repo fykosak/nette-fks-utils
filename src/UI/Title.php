@@ -9,16 +9,11 @@ use Nette\Utils\Random;
 
 class Title
 {
-    public string $title;
-
-    public ?string $icon;
-    public ?string $id;
-
-    public function __construct(?string $id, string $title, ?string $icon = null)
-    {
-        $this->title = $title;
-        $this->icon = $icon;
-        $this->id = $id;
+    public function __construct(
+        public readonly ?string $id,
+        public readonly string $title,
+        public readonly ?string $icon = null
+    ) {
     }
 
     public function toHtml(): Html

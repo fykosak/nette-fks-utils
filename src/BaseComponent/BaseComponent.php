@@ -10,7 +10,7 @@ use Nette\Localization\Translator;
 
 abstract class BaseComponent extends Control
 {
-    protected Container $container;
+    protected readonly Container $container;
     protected ?Translator $translator;
 
     public function __construct(Container $container)

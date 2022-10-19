@@ -12,7 +12,7 @@ class FlashMessageDump
     {
         if ($logger instanceof MemoryLogger) {
             foreach ($logger->getMessages() as $message) {
-                $control->flashMessage($message->text, $message->level);
+                $control->flashMessage($message->text, $message->level->value);
             }
             if ($clear) {
                 $logger->clear();
