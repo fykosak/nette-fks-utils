@@ -10,7 +10,7 @@ class GettextTranslator implements Translator
 {
     public function __construct(
         public readonly array $locales,
-        private readonly string $localeDir,
+        public readonly string $localeDir
     ) {
     }
 

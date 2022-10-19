@@ -4,66 +4,31 @@ declare(strict_types=1);
 
 namespace Fykosak\Utils\Price;
 
-use Nette\SmartObject;
+use Nette\NotImplementedException;
 
-/**
- * something like enum :)
- */
-final class Currency
+enum Currency: string
 {
-    use SmartObject;
-
-    public const EUR = 'eur';
-    public const CZK = 'czk';
-
-    public string $value;
-
-    /**
-     * @throws \Exception
-     */
-    public function __construct(string $currency)
-    {
-        if (!in_array($currency, [self::EUR, self::CZK])) {
-            throw new \Exception();
-        }
-        $this->value = $currency;
-    }
-
-    public static function cases(): array
-    {
-        return [new self(self::CZK), new self(self::EUR)];
-    }
-
-    public static function tryFrom(string $currency): ?self
-    {
-        try {
-            return new self($currency);
-        } catch (\Throwable $exception) {
-            return null;
-        }
-    }
-
-    /**
-     * @throws \Exception
-     */
-    public static function from(string $currency): self
-    {
-        return new self($currency);
-    }
+    case EUR = 'EUR';
+    case CZK = 'CZK';
 
     public function getLabel(): string
     {
-        switch ($this->value) {
-            case self::EUR:
-                return '€';
-            case self::CZK:
-                return 'Kč';
-        }
-        return '';
+        return match ($this) {
+            self::EUR => '€',
+            self::CZK => 'Kč',
+        };
     }
 
     public function format(float $amount): string
     {
-        return \sprintf('%1.2f %s', $amount, $this->getLabel());
+        $number = number_format(
+            $amount,
+            2,
+            localeconv()['decimal_point'] ?: '.',
+            localeconv()['thousands_sep'] ?: ''
+        );
+        return $number
+            . "\u{205F}"
+            . $this->getLabel();
     }
 }

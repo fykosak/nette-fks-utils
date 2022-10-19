@@ -10,13 +10,11 @@ final class Price
 {
     use SmartObject;
 
-    private Currency $currency;
     private float $amount;
 
-    public function __construct(Currency $currency, ?float $amount = null)
+    public function __construct(private readonly Currency $currency, ?float $amount = null)
     {
         $this->amount = $amount ?? 0;
-        $this->currency = $currency;
     }
 
     /**
@@ -48,5 +46,13 @@ final class Price
     public function __toString(): string
     {
         return $this->currency->format($this->amount);
+    }
+
+    public function __serialize(): array
+    {
+        return [
+            'currency' => $this->currency->value,
+            'amount' => $this->amount,
+        ];
     }
 }

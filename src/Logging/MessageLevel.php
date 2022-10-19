@@ -6,9 +6,9 @@ namespace Fykosak\Utils\Logging;
 
 enum MessageLevel: string
 {
-    case ERROR = 'danger';
-    case WARNING = 'warning';
-    case SUCCESS = 'success';
-    case INFO = 'info';
-    case PRIMARY = 'primary';
+    case Error = 'danger';
+    case Warning = 'warning';
+    case Success = 'success';
+    case Info = 'info';
+    case Primary = 'primary';
 }

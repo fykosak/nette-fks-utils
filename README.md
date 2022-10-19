@@ -3,7 +3,7 @@
 
 ## Currency & Price
 ### Currency.php
-Something like enum :) Methods `cases`, `tryFrom`, `try` and property `value` similar like PHP 8.1 enum.
+Something like enum :) Methods `cases`, `tryFrom`, `from` and property `value` similar like enum(PHP8.1).
 Implemented is only `EUR` and `CZK`. 
 
 To format amount use method `format(float $amount):string`
@@ -11,6 +11,13 @@ To format amount use method `format(float $amount):string`
 ### Price.php
 Representation of single currency price. Currency is passed as required parameter of constructor and can not be changed.
 If amount is not present in constructor, will be set to `0.0`. To modify amount use method `add`, to substrate use `add` with negative amount. 
+```php
+$price = new Price(Currency::from(Currency::CZK), 4.5);
+$price->add(5.0);
+$price->add(-4.0);
+$price->getAmount(); // return 5.5
+$price->getCurrency();// return Currency object with value 'czk'
+```
 
 Method `__toString` is only delegate to `Currency::format()`.
 
@@ -42,7 +49,7 @@ $multiPrice1->add($multiPrice2); // can be added because curencies of $multipric
 $multiPrice1->eur; // but still thow exception and not added a new currency 
 $multiPrice1->czk->getAmount(); // is 3.0 call add on Prices
 
-$multiPrice2->add($multiPrice1); // thow exeption because $multiprice1 no contain eur, so $multiprice2 is not a subset of $multiprice1
+$multiPrice2->add($multiPrice1); // thow exeption because $multiprice1 no contains eur, so $multiprice2 is not a subset of the $multiprice1
 
 ```
 ## BaseComponent

@@ -10,9 +10,9 @@ use Nette\Utils\Random;
 class Title
 {
     public function __construct(
-        public string $title,
-        public ?string $icon = null,
-        public ?string $id = null,
+        public readonly ?string $id,
+        public readonly string $title,
+        public readonly ?string $icon = null
     ) {
     }
 

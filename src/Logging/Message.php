@@ -11,17 +11,29 @@ class Message
 {
     use SmartObject;
 
-    public function __construct(
-        public readonly string|Html $text,
-        public readonly MessageLevel $level,
-    ) {
+    /** @deprecated */
+    public const LVL_ERROR = 'danger';
+    /** @deprecated */
+    public const LVL_WARNING = 'warning';
+    /** @deprecated */
+    public const LVL_SUCCESS = 'success';
+    /** @deprecated */
+    public const LVL_INFO = 'info';
+    /** @deprecated */
+    public const LVL_PRIMARY = 'primary';
+
+    public readonly MessageLevel $level;
+
+    public function __construct(public readonly string $message, MessageLevel|string $level)
+    {
+        $this->level = ($level instanceof MessageLevel) ? $level : MessageLevel::from($level);
     }
 
     public function __toArray(): array
     {
         return [
-            'text' => (string)$this->text,
-            'level' => $this->level->value,
+            'text' => $this->message,
+            'level' => $this->level,
         ];
     }
 }
