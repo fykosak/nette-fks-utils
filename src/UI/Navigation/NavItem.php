@@ -15,7 +15,7 @@ class NavItem
         public readonly Title $title,
         public readonly string $destination = '#',
         public readonly array $linkParams = [],
-        /** @var NavItem[] */
+        /** @param NavItem[] $children */
         public readonly array $children = [],
         public readonly bool $active = false
     ) {
