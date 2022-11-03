@@ -17,14 +17,9 @@ class LocalizedSting
         $this->texts = $texts ?? [];
     }
 
-    public function __get(string $lang): ?string
+    public function getMessage(LangEnum & \StringBackedEnum $lang): ?string
     {
-        return $this->texts[$lang] ?? null;
-    }
-
-    public function __set(string $lang, string $text): void
-    {
-        $this->texts[$lang] = $text;
+        return $this->texts[$lang->value] ?? null;
     }
 
     public function __toString(): string

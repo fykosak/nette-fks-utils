@@ -9,8 +9,12 @@ use Throwable;
 
 class UnsupportedLanguageException extends \Exception
 {
-    public function __construct(string $lang, ?Throwable $previous = null)
+    public function __construct(LangEnum & \StringBackedEnum $lang, ?Throwable $previous = null)
     {
-        parent::__construct(sprintf(_('Language %s is not supported'), $lang), IResponse::S400_BAD_REQUEST, $previous);
+        parent::__construct(
+            sprintf(_('Language %s is not supported'), $lang->value),
+            IResponse::S400_BAD_REQUEST,
+            $previous
+        );
     }
 }
