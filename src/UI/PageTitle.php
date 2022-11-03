@@ -14,7 +14,7 @@ class PageTitle extends Title
         public readonly ?string $subTitle = null,
         ?string $id = null
     ) {
-        parent::__construct($id, $title, $icon);
+        parent::__construct($title, icon: $icon, id: $id);
     }
 
     public function toHtml(bool $includeSubHeadline = false): Html
