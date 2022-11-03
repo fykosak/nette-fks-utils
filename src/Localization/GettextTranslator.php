@@ -19,7 +19,7 @@ class GettextTranslator implements Translator
      */
     public function setLang(LangEnum & \BackedEnum $lang): void
     {
-        if ($lang instanceof $this->langEnumClass) {
+        if (!$lang instanceof $this->langEnumClass) {
             throw new UnsupportedLanguageException($lang);
         }
         putenv('LANGUAGE=' . $lang->getLocale()); // for the sake of CLI tests
@@ -35,7 +35,7 @@ class GettextTranslator implements Translator
      */
     public function getSupportedLanguages(): array
     {
-        return array_keys($this->langEnumClass::getLocales());
+        return $this->langEnumClass::cases();
     }
 
     /**
