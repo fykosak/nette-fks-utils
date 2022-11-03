@@ -17,7 +17,7 @@ class GettextTranslator implements Translator
     /**
      * @throws UnsupportedLanguageException
      */
-    public function setLang(LangEnum & \StringBackedEnum $lang): void
+    public function setLang(LangEnum & \BackedEnum $lang): void
     {
         if ($lang instanceof $this->langEnumClass) {
             throw new UnsupportedLanguageException($lang);

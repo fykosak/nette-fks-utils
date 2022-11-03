@@ -17,7 +17,7 @@ class LocalizedSting
         $this->texts = $texts ?? [];
     }
 
-    public function getMessage(LangEnum & \StringBackedEnum $lang): ?string
+    public function getMessage(LangEnum & \BackedEnum $lang): ?string
     {
         return $this->texts[$lang->value] ?? null;
     }
