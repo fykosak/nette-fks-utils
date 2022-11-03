@@ -8,38 +8,26 @@ use Nette\Localization\Translator;
 
 class GettextTranslator implements Translator
 {
+    /** @param class-string<LangEnum>|string $langEnumClass */
     public function __construct(
-        public readonly array $locales,
-        public readonly string $localeDir
+        private readonly string $langEnumClass,
     ) {
     }
 
     /**
-     *
-     * @param string $lang ISO 639-1
      * @throws UnsupportedLanguageException
      */
-    public function setLang(string $lang): void
+    public function setLang(LangEnum & \BackedEnum $lang): void
     {
-        if (!isset($this->locales[$lang])) {
+        if (!$lang instanceof $this->langEnumClass) {
             throw new UnsupportedLanguageException($lang);
         }
-        $locale = $this->locales[$lang];
-
-        putenv('LANGUAGE=' . $locale); // for the sake of CLI tests
-        setlocale(LC_MESSAGES, $locale);
-        setlocale(LC_TIME, $locale);
-        bindtextdomain('messages', $this->localeDir);
+        putenv('LANGUAGE=' . $lang->getLocale()); // for the sake of CLI tests
+        setlocale(LC_MESSAGES, $lang->getLocale());
+        setlocale(LC_TIME, $lang->getLocale());
+        bindtextdomain('messages', $lang->getLocaleDir());
         bind_textdomain_codeset('messages', 'utf-8');
         textdomain('messages');
-    }
-
-    /**
-     * @return string[]
-     */
-    public function getSupportedLanguages(): array
-    {
-        return array_keys($this->locales);
     }
 
     /**

@@ -11,6 +11,7 @@
             </a>
             <ul class="dropdown-menu" aria-labelledby="{$id}">
                 {foreach $item->children as $children}
+                    {varType Fykosak\Utils\UI\Navigation\NavItem $children}
                     <li>
                         <a class="{$children->active?'dropdown-item active':'dropdown-item'}"
                            href="{plink $children->destination,(expand)$children->linkParams}">
