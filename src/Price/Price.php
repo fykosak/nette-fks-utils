@@ -10,11 +10,8 @@ final class Price
 {
     use SmartObject;
 
-    private float $amount;
-
-    public function __construct(private readonly Currency $currency, ?float $amount = null)
+    public function __construct(public readonly Currency $currency, private float $amount = 0)
     {
-        $this->amount = $amount ?? 0;
     }
 
     /**
@@ -22,15 +19,10 @@ final class Price
      */
     public function add(Price $price): void
     {
-        if ($this->currency->value !== $price->getCurrency()->value) {
+        if ($this->currency !== $price->currency) {
             throw new \LogicException('Currencies are not a same');
         }
         $this->amount += $price->getAmount();
-    }
-
-    public function getCurrency(): Currency
-    {
-        return $this->currency;
     }
 
     public function getAmount(): float

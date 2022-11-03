@@ -31,14 +31,6 @@ class GettextTranslator implements Translator
     }
 
     /**
-     * @return string[]
-     */
-    public function getSupportedLanguages(): array
-    {
-        return $this->langEnumClass::cases();
-    }
-
-    /**
      * @param mixed|string $message
      * @param array $parameters
      * @return string

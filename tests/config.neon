@@ -1,4 +1,4 @@
 services:
     - Fykosak\Utils\Tests\DummyService
-    - Fykosak\Utils\Localization\GettextTranslator([],'')
+    - Fykosak\Utils\Localization\GettextTranslator(Fykosak\Utils\Tests\DummyLang)
 
