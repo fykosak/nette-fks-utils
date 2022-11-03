@@ -9,10 +9,10 @@ use Nette\Utils\Html;
 class PageTitle extends Title
 {
     public function __construct(
-        ?string $id,
         string $title,
         ?string $icon = null,
-        public readonly ?string $subTitle = null
+        public readonly ?string $subTitle = null,
+        ?string $id = null
     ) {
         parent::__construct($id, $title, $icon);
     }
