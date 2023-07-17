@@ -4,27 +4,28 @@ declare(strict_types=1);
 
 namespace Fykosak\Utils\Localization;
 
-use Nette\SmartObject;
-
-class LocalizedSting
+class LocalizedString
 {
-    use SmartObject;
-
     private array $texts;
 
-    public function __construct(?array $texts = null)
+    public function __construct(array $texts)
     {
-        $this->texts = $texts ?? [];
+        $this->texts = $texts;
     }
 
     public function __get(string $lang): ?string
     {
+        return $this->getText($lang);
+    }
+
+    public function getText(string $lang): ?string
+    {
         return $this->texts[$lang] ?? null;
     }
 
-    public function __set(string $lang, string $text): void
+    public function __serialize(): array
     {
-        $this->texts[$lang] = $text;
+        return $this->texts;
     }
 
     public function __toString(): string
