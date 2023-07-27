@@ -10,7 +10,6 @@ use Nette\Utils\Random;
 class Title
 {
     public string $title;
-
     public ?string $icon;
     public ?string $id;
 

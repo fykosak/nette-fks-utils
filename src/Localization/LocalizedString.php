@@ -6,8 +6,14 @@ namespace Fykosak\Utils\Localization;
 
 class LocalizedString
 {
+    /**
+     * @phpstan-var array<string,string>
+     */
     private array $texts;
 
+    /**
+     * @phpstan-param array<string,string> $texts
+     */
     public function __construct(array $texts)
     {
         $this->texts = $texts;

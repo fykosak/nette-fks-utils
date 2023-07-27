@@ -31,6 +31,9 @@ final class Currency
         $this->value = $currency;
     }
 
+    /**
+     * @return self[]
+     */
     public static function cases(): array
     {
         return [new self(self::CZK), new self(self::EUR)];

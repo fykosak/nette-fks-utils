@@ -12,12 +12,17 @@ class NavItem
     use SmartObject;
 
     public string $destination;
+    /** @phpstan-var array<string,int|string|bool> */
     public array $linkParams;
     public Title $title;
     /** @var NavItem[] */
     public array $children;
     public bool $active;
 
+    /**
+     * @phpstan-param array<string,int|string|bool> $linkParams
+     * @phpstan-param NavItem[] $children
+     */
     public function __construct(
         Title $title,
         string $destination = '#',

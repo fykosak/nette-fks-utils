@@ -8,11 +8,14 @@ use Nette\Localization\Translator;
 
 class GettextTranslator implements Translator
 {
-    /** @var array[lang] => locale */
+    /** @phpstan-var array<string,string> */
     public array $locales;
     private string $localeDir;
     public ?string $lang = null;
 
+    /**
+     * @phpstan-param array<string,string> $locales
+     */
     public function __construct(array $locales, string $localeDir)
     {
         $this->locales = $locales;
@@ -50,8 +53,7 @@ class GettextTranslator implements Translator
 
     /**
      * @param mixed|string $message
-     * @param array $parameters
-     * @return string
+     * @param string|int $parameters
      */
     public function translate($message, ...$parameters): string
     {

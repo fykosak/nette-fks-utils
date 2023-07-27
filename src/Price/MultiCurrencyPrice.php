@@ -13,6 +13,9 @@ final class MultiCurrencyPrice
     /** @var Price[] */
     private array $prices = [];
 
+    /**
+     * @param Price[]|null $prices
+     */
     public function __construct(?array $prices = [])
     {
         foreach ($prices as $price) {

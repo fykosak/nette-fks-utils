@@ -25,6 +25,9 @@ class Message
         $this->level = $level;
     }
 
+    /**
+     * @phpstan-return  array{'text':string,'level':string}
+     */
     public function __toArray(): array
     {
         return [
