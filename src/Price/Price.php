@@ -6,6 +6,9 @@ namespace Fykosak\Utils\Price;
 
 use Nette\SmartObject;
 
+/**
+ * @phpstan-type TSerializedPrice array{currency:string,amount:float}
+ */
 final class Price
 {
     use SmartObject;
@@ -50,6 +53,9 @@ final class Price
         return $this->currency->format($this->amount);
     }
 
+    /**
+     * @phpstan-return TSerializedPrice
+     */
     public function __serialize(): array
     {
         return [

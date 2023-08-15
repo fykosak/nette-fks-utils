@@ -12,7 +12,7 @@ class NavItem
     use SmartObject;
 
     public string $destination;
-    /** @phpstan-var array<string,int|string|bool> */
+    /** @phpstan-var array<string,scalar> */
     public array $linkParams;
     public Title $title;
     /** @var NavItem[] */
@@ -20,7 +20,7 @@ class NavItem
     public bool $active;
 
     /**
-     * @phpstan-param array<string,int|string|bool> $linkParams
+     * @phpstan-param array<string,scalar> $linkParams
      * @phpstan-param NavItem[] $children
      */
     public function __construct(

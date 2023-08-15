@@ -26,7 +26,7 @@ class Message
     }
 
     /**
-     * @phpstan-return  array{'text':string,'level':string}
+     * @phpstan-return array{text:string,level:string}
      */
     public function __toArray(): array
     {
