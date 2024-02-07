@@ -17,10 +17,13 @@ class Message
     public const LVL_INFO = 'info';
     public const LVL_PRIMARY = 'primary';
 
-    public Html|string $text;
+    public $text;
     public string $level;
 
-    public function __construct(Html|string $message, string $level)
+    /**
+     * @param string|Html $message
+     */
+    public function __construct($message, string $level)
     {
         $this->text = $message;
         $this->level = $level;
