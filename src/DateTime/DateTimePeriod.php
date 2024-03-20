@@ -34,25 +34,25 @@ class DateTimePeriod
             && $this->end->getTimestamp() >= $timeStamp;
     }
 
-    public function is(Period $period, ?\DateTimeInterface $dateTime = null): bool
+    public function is(Phase $period, ?\DateTimeInterface $dateTime = null): bool
     {
         return match ($period) {
-            Period::before => $this->isBefore($dateTime),
-            Period::after => $this->isAfter($dateTime),
-            Period::onGoing => $this->isOnGoing($dateTime)
+            Phase::before => $this->isBefore($dateTime),
+            Phase::after => $this->isAfter($dateTime),
+            Phase::onGoing => $this->isOnGoing($dateTime)
         };
     }
 
-    public function getPeriod(?\DateTimeInterface $dateTime = null): Period
+    public function getPhase(?\DateTimeInterface $dateTime = null): Phase
     {
         if ($this->isBefore($dateTime)) {
-            return Period::before;
+            return Phase::before;
         }
         if ($this->isAfter($dateTime)) {
-            return Period::after;
+            return Phase::after;
         }
         if ($this->isOnGoing($dateTime)) {
-            return Period::onGoing;
+            return Phase::onGoing;
         }
         throw new \LogicException();
     }
