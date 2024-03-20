@@ -4,20 +4,23 @@ declare(strict_types=1);
 
 namespace Fykosak\Utils\Logging;
 
-use Nette\SmartObject;
+use Nette\Utils\Html;
 
 class Message
 {
-    use SmartObject;
-
-    public function __construct(public readonly string $message, public readonly MessageLevel $level)
-    {
+    public function __construct(
+        public readonly string | Html $text,
+        public readonly MessageLevel $level
+    ) {
     }
 
+    /**
+     * @phpstan-return array{text:string,level:string}
+     */
     public function __toArray(): array
     {
         return [
-            'text' => $this->message,
+            'text' => ($this->text instanceof Html) ? $this->text->toHtml() : $this->text,
             'level' => $this->level,
         ];
     }
