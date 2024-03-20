@@ -4,34 +4,31 @@ declare(strict_types=1);
 
 namespace Fykosak\Utils\DateTime;
 
-class DateTimePeriod
+class Period
 {
     public function __construct(
         public readonly \DateTimeImmutable $begin,
         public readonly \DateTimeImmutable $end,
     ) {
-        if ($this->begin->getTimestamp() > $this->end->getTimestamp()) {
+        if ($this->begin > $this->end) {
             throw new \LogicException();
         }
     }
 
     public function isBefore(?\DateTimeInterface $dateTime = null): bool
     {
-        $timeStamp = $dateTime ? $dateTime->getTimestamp() : time();
-        return $this->begin->getTimestamp() > $timeStamp;
+        return $this->begin > ($dateTime ?? new \DateTimeImmutable());
     }
 
     public function isAfter(?\DateTimeInterface $dateTime = null): bool
     {
-        $timeStamp = $dateTime ? $dateTime->getTimestamp() : time();
-        return $this->end->getTimestamp() < $timeStamp;
+        return $this->end < ($dateTime ?? new \DateTimeImmutable());
     }
 
     public function isOnGoing(?\DateTimeInterface $dateTime = null): bool
     {
-        $timeStamp = $dateTime ? $dateTime->getTimestamp() : time();
-        return $this->begin->getTimestamp() <= $timeStamp
-            && $this->end->getTimestamp() >= $timeStamp;
+        return $this->begin <= ($dateTime ?? new \DateTimeImmutable())
+            && $this->end >= ($dateTime ?? new \DateTimeImmutable());
     }
 
     public function is(Phase $period, ?\DateTimeInterface $dateTime = null): bool
