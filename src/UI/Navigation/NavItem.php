@@ -5,12 +5,13 @@ declare(strict_types=1);
 namespace Fykosak\Utils\UI\Navigation;
 
 use Fykosak\Utils\UI\Title;
-use Nette\SmartObject;
 
 class NavItem
 {
-    use SmartObject;
-
+    /**
+     * @phpstan-param array<string,scalar> $linkParams
+     * @phpstan-param NavItem[] $children
+     */
     public function __construct(
         public readonly Title $title,
         public readonly string $destination = '#',

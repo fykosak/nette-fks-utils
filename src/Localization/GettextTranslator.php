@@ -8,7 +8,11 @@ use Nette\Localization\Translator;
 
 class GettextTranslator implements Translator
 {
-    /** @param class-string<LangEnum>|string $langEnumClass */
+    public LangEnum & \BackedEnum $lang;
+
+    /**
+     * @phpstan-param class-string<LangEnum>|string $langEnumClass
+     */
     public function __construct(
         private readonly string $langEnumClass,
     ) {
@@ -22,6 +26,9 @@ class GettextTranslator implements Translator
         if (!$lang instanceof $this->langEnumClass) {
             throw new UnsupportedLanguageException($lang);
         }
+        $this->lang = $lang;
+
+
         putenv('LANGUAGE=' . $lang->getLocale()); // for the sake of CLI tests
         setlocale(LC_MESSAGES, $lang->getLocale());
         setlocale(LC_TIME, $lang->getLocale());
@@ -32,8 +39,7 @@ class GettextTranslator implements Translator
 
     /**
      * @param mixed|string $message
-     * @param array $parameters
-     * @return string
+     * @param string|int $parameters
      */
     public function translate($message, ...$parameters): string
     {

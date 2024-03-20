@@ -14,7 +14,6 @@ class NavigationItemComponent extends DIComponent
 {
     public function render(NavItem $item): void
     {
-        $this->template->item = $item;
-        $this->template->render(__DIR__ . DIRECTORY_SEPARATOR . 'navigationItem.latte');
+        $this->template->render(__DIR__ . DIRECTORY_SEPARATOR . 'navigationItem.latte', ['item' => $item]);
     }
 }
