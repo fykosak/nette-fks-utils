@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Fykosak\Utils\Price;
 
-use Nette\NotImplementedException;
-
 enum Currency: string
 {
     case EUR = 'EUR';
