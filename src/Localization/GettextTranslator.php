@@ -6,15 +6,19 @@ namespace Fykosak\Utils\Localization;
 
 use Nette\Localization\Translator;
 
+/**
+ * @phpstan-template TLang of string
+ */
 class GettextTranslator implements Translator
 {
-    /** @phpstan-var array<string,string> */
+    /** @phpstan-var array<TLang,string> */
     public array $locales;
     private string $localeDir;
-    public ?string $lang = null;
+    /** @phpstan-var TLang */
+    public string $lang;
 
     /**
-     * @phpstan-param array<string,string> $locales
+     * @phpstan-param array<TLang,string> $locales
      */
     public function __construct(array $locales, string $localeDir)
     {
@@ -24,7 +28,7 @@ class GettextTranslator implements Translator
 
     /**
      *
-     * @param string $lang ISO 639-1
+     * @param TLang $lang ISO 639-1
      * @throws UnsupportedLanguageException
      */
     public function setLang(string $lang): void
@@ -44,11 +48,21 @@ class GettextTranslator implements Translator
     }
 
     /**
-     * @return string[]
+     * @return TLang[]
      */
     public function getSupportedLanguages(): array
     {
         return array_keys($this->locales);
+    }
+
+    /**
+     * @phpstan-template TValue
+     * @phpstan-param LangMap<TLang,TValue> $map
+     * @phpstan-return TValue
+     */
+    public function getVariant(LangMap $map)
+    {
+        return $map->get($this->lang);
     }
 
     /**
@@ -57,6 +71,7 @@ class GettextTranslator implements Translator
      */
     public function translate($message, ...$parameters): string
     {
+
         if ($message === '' || $message === null) {
             return '';
         }
