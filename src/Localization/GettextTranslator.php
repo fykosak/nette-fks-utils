@@ -57,16 +57,21 @@ class GettextTranslator implements Translator
 
     /**
      * @phpstan-template TValue
-     * @phpstan-param LangMap<TLang,TValue> $map
+     * @phpstan-param array<TLang,TValue>|LangMap<TLang,TValue> $map
      * @phpstan-return TValue
      */
-    public function getVariant(LangMap $map)
+    public function getVariant($map)
     {
-        return $map->get($this->lang);
+        if ($map instanceof LangMap) {
+            return $map->get($this->lang);
+        } elseif (is_array($map)) {
+            return $map[$this->lang];
+        }
+        throw new \InvalidArgumentException();//@phpstan-ignore-line
     }
 
     /**
-     * @param mixed|string $message
+     * @param array|LangMap|string|null $message
      * @param string|int $parameters
      */
     public function translate($message, ...$parameters): string
@@ -74,6 +79,12 @@ class GettextTranslator implements Translator
 
         if ($message === '' || $message === null) {
             return '';
+        }
+        if (is_array($message)) {
+            return (string)$this->getVariant($message);
+        }
+        if ($message instanceof LangMap) {
+            return (string)$message->get($this->lang);
         }
         if (isset($parameters[0])) {
             return ngettext($message, $message, (int)$parameters[0]);
