@@ -5,7 +5,8 @@ declare(strict_types=1);
 namespace Fykosak\Utils\Components;
 
 use Fykosak\Utils\Localization\GettextTranslator;
-use Nette\Application\UI\{Control, Template};
+use Nette\Application\UI\Control;
+use Nette\Application\UI\Template;
 use Nette\DI\Container;
 
 /**
@@ -37,6 +38,7 @@ abstract class DIComponent extends Control
         /** @var \Nette\Bridges\ApplicationLatte\Template $template */
         $template = parent::createTemplate();
         $template->setTranslator($this->translator);
+        $template->translator = $this->translator;
         return $template;
     }
 }
