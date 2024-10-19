@@ -9,11 +9,14 @@ use Nette\Utils\Random;
 
 class Title
 {
+    public readonly string $id;
+
     public function __construct(
-        public readonly string $title,
+        public readonly string | Html $title,
         public readonly ?string $icon = null,
-        public readonly ?string $id = null,
+        ?string $id = null,
     ) {
+        $this->id = $id ?? Random::generate(10, 'a-z');
     }
 
     public function toHtml(): Html
@@ -23,7 +26,7 @@ class Title
             $container->addHtml(
                 Html::el('i')->addAttributes(
                     [
-                        'id' => $this->id ?? Random::generate(10, 'a-z'),
+                        'id' => $this->id,
                         'class' => $this->icon . ' mr-2 me-2',
                     ]
                 )

@@ -4,16 +4,14 @@ declare(strict_types=1);
 
 namespace Fykosak\Utils\Price;
 
-use Nette\SmartObject;
-
 final class MultiCurrencyPrice
 {
-    use SmartObject;
-
     /** @var Price[] */
     private array $prices = [];
 
-    /** @param Price[] $prices */
+    /**
+     * @param Price[]|null $prices
+     */
     public function __construct(?array $prices = [])
     {
         foreach ($prices as $price) {
