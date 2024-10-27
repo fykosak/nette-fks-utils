@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Fykosak\Utils\Tests\BaseComponent;
 
-use Fykosak\Utils\BaseComponent\DIComponent;
+use Fykosak\Utils\Components\DIComponent;
 use Fykosak\Utils\Tests\DummyService;
 
 class DummyComponent extends DIComponent
