@@ -11,19 +11,19 @@ use Nette\Localization\Translator;
  */
 class GettextTranslator implements Translator
 {
-    /** @phpstan-var  \BackedEnum&LangEnum<TLang> */
-    public LangEnum & \BackedEnum $lang;
-
-
     /** @phpstan-var array<TLang,string> */
     public array $locales;
+    private string $localeDir;
+    /** @phpstan-var TLang */
+    public string $lang;
 
     /**
-     * @phpstan-param class-string<LangEnum>|string $langEnumClass
+     * @phpstan-param array<TLang,string> $locales
      */
-    public function __construct(
-        private readonly string $langEnumClass,
-    ) {
+    public function __construct(array $locales, string $localeDir)
+    {
+        $this->locales = $locales;
+        $this->localeDir = $localeDir;
     }
 
     /**
@@ -31,20 +31,28 @@ class GettextTranslator implements Translator
      * @param TLang $lang ISO 639-1
      * @throws UnsupportedLanguageException
      */
-    public function setLang(LangEnum & \BackedEnum $lang): void
+    public function setLang(string $lang): void
     {
-        if (!$lang instanceof $this->langEnumClass) {
+        $this->lang = $lang;
+        if (!isset($this->locales[$lang])) {
             throw new UnsupportedLanguageException($lang);
         }
-        $this->lang = $lang;
+        $locale = $this->locales[$lang];
 
-
-        putenv('LANGUAGE=' . $lang->getLocale()); // for the sake of CLI tests
-        setlocale(LC_MESSAGES, $lang->getLocale());
-        setlocale(LC_TIME, $lang->getLocale());
-        bindtextdomain('messages', $lang->getLocaleDir());
+        putenv('LANGUAGE=' . $locale); // for the sake of CLI tests
+        setlocale(LC_MESSAGES, $locale);
+        setlocale(LC_TIME, $locale);
+        bindtextdomain('messages', $this->localeDir);
         bind_textdomain_codeset('messages', 'utf-8');
         textdomain('messages');
+    }
+
+    /**
+     * @return TLang[]
+     */
+    public function getSupportedLanguages(): array
+    {
+        return array_keys($this->locales);
     }
 
     /**
@@ -52,9 +60,14 @@ class GettextTranslator implements Translator
      * @phpstan-param array<TLang,TValue>|LangMap<TLang,TValue> $map
      * @phpstan-return TValue
      */
-    public function getVariant(array|LangMap $map)
+    public function getVariant($map)
     {
-        $this->lang->getVariant($map);
+        if ($map instanceof LangMap) {
+            return $map->get($this->lang);
+        } elseif (is_array($map)) {
+            return $map[$this->lang];
+        }
+        throw new \InvalidArgumentException();//@phpstan-ignore-line
     }
 
     /**
@@ -71,7 +84,7 @@ class GettextTranslator implements Translator
             return (string)$this->getVariant($message);
         }
         if ($message instanceof LangMap) {
-            return (string)$this->getVariant($message);
+            return (string)$message->get($this->lang);
         }
         if (isset($parameters[0])) {
             return ngettext($message, $message, (int)$parameters[0]);
