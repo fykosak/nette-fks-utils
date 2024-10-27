@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Fykosak\Utils\Tests\BaseComponent;
 
-use Fykosak\Utils\BaseComponent\BaseComponent;
+use Fykosak\Utils\Components\DIComponent;
 use Fykosak\Utils\Tests\DummyService;
 
-class DummyComponent extends BaseComponent
+class DummyComponent extends DIComponent
 {
     public DummyService $dummyService;
 
