@@ -60,7 +60,7 @@ class GettextTranslator implements Translator
      * @phpstan-param array<TLang,TValue>|LangMap<TLang,TValue> $map
      * @phpstan-return TValue
      */
-    public function getVariant($map)
+    public function getVariant($map): mixed
     {
         if ($map instanceof LangMap) {
             return $map->get($this->lang);
