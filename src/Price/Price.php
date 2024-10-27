@@ -4,22 +4,15 @@ declare(strict_types=1);
 
 namespace Fykosak\Utils\Price;
 
-use Nette\SmartObject;
-
-/**
- * @phpstan-type TSerializedPrice array{currency:string,amount:float}
- */
 final class Price
 {
-    use SmartObject;
-
-    private Currency $currency;
     private float $amount;
 
-    public function __construct(Currency $currency, ?float $amount = null)
-    {
+    public function __construct(
+        private readonly Currency $currency,
+        ?float $amount = null
+    ) {
         $this->amount = $amount ?? 0;
-        $this->currency = $currency;
     }
 
     /**
@@ -54,7 +47,7 @@ final class Price
     }
 
     /**
-     * @phpstan-return TSerializedPrice
+     * @phpstan-return array{currency:string,amount:float}
      */
     public function __serialize(): array
     {

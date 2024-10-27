@@ -9,18 +9,13 @@ use Nette\Utils\Random;
 
 class Title
 {
-    /** @var string|Html */
-    public $title;
-    public ?string $icon;
-    public string $id;
+    public readonly string $id;
 
-    /**
-     * @param string|Html $title
-     */
-    public function __construct(?string $id, $title, ?string $icon = null)
-    {
-        $this->title = $title;
-        $this->icon = $icon;
+    public function __construct(
+        ?string $id,
+        public readonly string|Html $title,
+        public readonly ?string $icon = null
+    ) {
         $this->id = $id ?? Random::generate(10, 'a-z');
     }
 
