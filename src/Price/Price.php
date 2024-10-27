@@ -20,7 +20,7 @@ final class Price
      */
     public function add(Price $price): void
     {
-        if ($this->currency->value !== $price->getCurrency()->value) {
+        if ($this->currency !== $price->getCurrency()) {
             throw new \LogicException('Currencies are not a same');
         }
         $this->amount += $price->getAmount();
