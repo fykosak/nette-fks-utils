@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Fykosak\Utils\UI\Navigation;
 
-use Fykosak\Utils\BaseComponent\DIComponent;
+use Fykosak\Utils\Components\DIComponent;
 
 /**
  * Compatible with bootstrap >=5.0

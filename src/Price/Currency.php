@@ -4,9 +4,6 @@ declare(strict_types=1);
 
 namespace Fykosak\Utils\Price;
 
-/**
- * something like enum :)
- */
 enum Currency: string
 {
     case EUR = 'EUR';
@@ -22,6 +19,14 @@ enum Currency: string
 
     public function format(float $amount): string
     {
-        return \sprintf('%1.2f %s', $amount, $this->getLabel());
+        $number = number_format(
+            $amount,
+            2,
+            localeconv()['decimal_point'] ?: '.',
+            localeconv()['thousands_sep'] ?: ''
+        );
+        return $number
+            . "\u{205F}"
+            . $this->getLabel();
     }
 }

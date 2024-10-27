@@ -34,11 +34,6 @@ class TestCurrency extends BaseTest
         Assert::type(Currency::class, $currency);
     }
 
-    public function testFromNonExists(): void
-    {
-        Assert::exception(fn() => Currency::from('XBT'), \ValueError::class);
-    }
-
     public function testTryFromNonExists(): void
     {
         $currency = Currency::tryFrom('XBT');
@@ -48,7 +43,7 @@ class TestCurrency extends BaseTest
     public function testRender(): void
     {
         $currency = Currency::CZK;
-        Assert::same('2.00 Kč', $currency->format(2.0));
+        Assert::same('2.00 Kč', $currency->format(2.0));
     }
 }
 

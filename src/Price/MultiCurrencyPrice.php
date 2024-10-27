@@ -4,12 +4,8 @@ declare(strict_types=1);
 
 namespace Fykosak\Utils\Price;
 
-use Nette\SmartObject;
-
 final class MultiCurrencyPrice
 {
-    use SmartObject;
-
     /** @var Price[] */
     private array $prices = [];
 
@@ -19,7 +15,7 @@ final class MultiCurrencyPrice
     public function __construct(?array $prices = [])
     {
         foreach ($prices as $price) {
-            $this->prices[$price->getCurrency()->value] = $price;
+            $this->prices[$price->currency->value] = $price;
         }
     }
 
@@ -54,12 +50,12 @@ final class MultiCurrencyPrice
 
     public function setPrice(Price $price): void
     {
-        if (!isset($this->prices[$price->getCurrency()->value])) {
+        if (!isset($this->prices[$price->currency->value])) {
             throw new \OutOfRangeException(
-                sprintf(_('Price for the currency "%s" does not exists'), $price->getCurrency()->value)
+                sprintf(_('Price for the currency "%s" does not exists'), $price->currency->value)
             );
         }
-        $this->prices[$price->getCurrency()->value] = $price;
+        $this->prices[$price->currency->value] = $price;
     }
 
     public function immutableAddPrice(Price $price): self
@@ -82,7 +78,7 @@ final class MultiCurrencyPrice
     public function __set(string $name, Price $value): void
     {
         $name = strtoupper($name);
-        if ($value->getCurrency()->value !== $name) {
+        if ($value->currency->value !== $name) {
             throw new \LogicException(sprintf(_('Currency "%s" does not match'), $name));
         }
         $this->setPrice($value);

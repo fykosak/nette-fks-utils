@@ -9,7 +9,7 @@ final class Price
     private float $amount;
 
     public function __construct(
-        private readonly Currency $currency,
+        public readonly Currency $currency,
         ?float $amount = null
     ) {
         $this->amount = $amount ?? 0;
@@ -20,15 +20,10 @@ final class Price
      */
     public function add(Price $price): void
     {
-        if ($this->currency !== $price->getCurrency()) {
+        if ($this->currency !== $price->currency) {
             throw new \LogicException('Currencies are not a same');
         }
         $this->amount += $price->getAmount();
-    }
-
-    public function getCurrency(): Currency
-    {
-        return $this->currency;
     }
 
     public function getAmount(): float

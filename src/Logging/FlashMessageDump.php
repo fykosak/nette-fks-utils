@@ -11,7 +11,7 @@ class FlashMessageDump
     public static function dump(MemoryLogger $logger, Control $control, bool $clear = true): void
     {
         foreach ($logger->getMessages() as $message) {
-            $control->flashMessage($message->text, $message->level);
+            $control->flashMessage($message->text, $message->level->value);
         }
         if ($clear) {
             $logger->clear();

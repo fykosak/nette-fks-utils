@@ -15,11 +15,10 @@ require_once __DIR__ . '/../FakeBootstrap.php';
 
 class TestMultiPrice extends BaseTest
 {
-
     public function testCreateEmpty(): void
     {
         $multiPrice = new MultiCurrencyPrice();
-        Assert::exception(fn() => $multiPrice->czk, \OutOfRangeException::class);
+        Assert::error(fn() => $multiPrice->czk, \OutOfRangeException::class);
     }
 
     public function testCreateFilled(): void

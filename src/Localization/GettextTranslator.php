@@ -11,19 +11,16 @@ use Nette\Localization\Translator;
  */
 class GettextTranslator implements Translator
 {
-    /** @phpstan-var array<TLang,string> */
-    public array $locales;
-    private string $localeDir;
     /** @phpstan-var TLang */
     public string $lang;
 
     /**
      * @phpstan-param array<TLang,string> $locales
      */
-    public function __construct(array $locales, string $localeDir)
-    {
-        $this->locales = $locales;
-        $this->localeDir = $localeDir;
+    public function __construct(
+        public readonly array $locales,
+        private readonly string $localeDir
+    ) {
     }
 
     /**
@@ -60,14 +57,13 @@ class GettextTranslator implements Translator
      * @phpstan-param array<TLang,TValue>|LangMap<TLang,TValue> $map
      * @phpstan-return TValue
      */
-    public function getVariant($map): mixed
+    public function getVariant(array|LangMap $map): mixed
     {
         if ($map instanceof LangMap) {
             return $map->get($this->lang);
-        } elseif (is_array($map)) {
+        } else {
             return $map[$this->lang];
         }
-        throw new \InvalidArgumentException();//@phpstan-ignore-line
     }
 
     /**
