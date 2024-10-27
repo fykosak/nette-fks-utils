@@ -13,8 +13,7 @@ class PageTitle extends Title
         string|Html $title,
         ?string $icon = null,
         public string|Html|null $subTitle = null
-    )
-    {
+    ) {
         parent::__construct($id, $title, $icon);
     }
 
