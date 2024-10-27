@@ -9,18 +9,18 @@ use Nette\Utils\Html;
 class PageTitle extends Title
 {
     public function __construct(
-        string $title,
+        ?string $id,
+        string|Html $title,
         ?string $icon = null,
-        public readonly ?string $subTitle = null,
-        ?string $id = null
+        public string|Html|null $subTitle = null
     ) {
-        parent::__construct($title, icon: $icon, id: $id);
+        parent::__construct($id, $title, $icon);
     }
 
-    public function toHtml(bool $includeSubHeadline = false): Html
+    public function toHtml(bool $includeSubTitle = false): Html
     {
         $container = parent::toHtml();
-        if ($includeSubHeadline && $this->subTitle) {
+        if ($includeSubTitle && $this->subTitle) {
             $container->addHtml(
                 Html::el('small')
                     ->addAttributes(['class' => 'ml-2 ms-2 text-secondary small'])

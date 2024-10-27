@@ -4,14 +4,15 @@ declare(strict_types=1);
 
 namespace Fykosak\Utils\Price;
 
-use Nette\SmartObject;
-
 final class Price
 {
-    use SmartObject;
+    private float $amount;
 
-    public function __construct(public readonly Currency $currency, private float $amount = 0)
-    {
+    public function __construct(
+        public readonly Currency $currency,
+        ?float $amount = null
+    ) {
+        $this->amount = $amount ?? 0;
     }
 
     /**
@@ -40,6 +41,9 @@ final class Price
         return $this->currency->format($this->amount);
     }
 
+    /**
+     * @phpstan-return array{currency:string,amount:float}
+     */
     public function __serialize(): array
     {
         return [
