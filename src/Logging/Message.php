@@ -8,15 +8,9 @@ use Nette\Utils\Html;
 
 class Message
 {
-    public const LVL_ERROR = 'danger';
-    public const LVL_WARNING = 'warning';
-    public const LVL_SUCCESS = 'success';
-    public const LVL_INFO = 'info';
-    public const LVL_PRIMARY = 'primary';
-
     public function __construct(
         public readonly string|Html $text,
-        public readonly string $level
+        public readonly MessageLevel $level
     ) {
     }
 
@@ -27,7 +21,7 @@ class Message
     {
         return [
             'text' => ($this->text instanceof Html) ? $this->text->toHtml() : $this->text,
-            'level' => $this->level,
+            'level' => $this->level->value,
         ];
     }
 }
