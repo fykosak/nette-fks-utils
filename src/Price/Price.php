@@ -9,7 +9,7 @@ final class Price
     private float $amount;
 
     public function __construct(
-        private readonly Currency $currency,
+        public readonly Currency $currency,
         ?float $amount = null
     ) {
         $this->amount = $amount ?? 0;
