@@ -9,12 +9,12 @@ use Nette\Utils\Html;
 class PageTitle extends Title
 {
     public function __construct(
-        string | Html $title,
+        ?string $id,
+        string|Html $title,
         ?string $icon = null,
-        public readonly string | Html | null $subTitle = null,
-        ?string $id = null
+        public string|Html|null $subTitle = null
     ) {
-        parent::__construct($title, icon: $icon, id: $id);
+        parent::__construct($id, $title, $icon);
     }
 
     public function toHtml(bool $includeSubTitle = false): Html

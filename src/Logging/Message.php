@@ -9,7 +9,7 @@ use Nette\Utils\Html;
 class Message
 {
     public function __construct(
-        public readonly string | Html $text,
+        public readonly string|Html $text,
         public readonly MessageLevel $level
     ) {
     }
@@ -21,7 +21,7 @@ class Message
     {
         return [
             'text' => ($this->text instanceof Html) ? $this->text->toHtml() : $this->text,
-            'level' => $this->level,
+            'level' => $this->level->value,
         ];
     }
 }

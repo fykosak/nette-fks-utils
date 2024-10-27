@@ -43,7 +43,7 @@ class TestCurrency extends BaseTest
     public function testRender(): void
     {
         $currency = Currency::CZK;
-        Assert::same('2.00 Kč', $currency->format(2.0));
+        Assert::same('2.00 Kč', $currency->format(2.0));
     }
 }
 

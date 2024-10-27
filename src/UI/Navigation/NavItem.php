@@ -10,7 +10,6 @@ class NavItem
 {
     /**
      * @phpstan-param array<string,scalar> $linkParams
-     * @phpstan-param NavItem[] $children
      */
     public function __construct(
         public readonly Title $title,

@@ -27,9 +27,18 @@ class LangMap
      * @phpstan-param TLang $key
      * @phpstan-return TValue
      */
-    public function get(string $key): mixed
+    public function __get(string $lang): mixed
     {
-        return $this->variants[$key] ?? null;
+        return $this->get($lang);
+    }
+
+    /**
+     * @phpstan-param TLang $lang
+     * @phpstan-return TValue
+     */
+    public function get(string $lang): mixed
+    {
+        return $this->variants[$lang] ?? null;
     }
 
     /**

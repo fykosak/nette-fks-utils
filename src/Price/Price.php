@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace Fykosak\Utils\Price;
 
-/**
- * @phpstan-type TSerializedPrice array{currency:string,amount:float}
- */
 final class Price
 {
+    private float $amount;
+
     public function __construct(
-        public readonly Currency $currency,
-        private float $amount = 0,
+        private readonly Currency $currency,
+        ?float $amount = null
     ) {
+        $this->amount = $amount ?? 0;
     }
 
     /**
@@ -20,7 +20,7 @@ final class Price
      */
     public function add(Price $price): void
     {
-        if ($this->currency !== $price->currency) {
+        if ($this->currency !== $price->getCurrency()) {
             throw new \LogicException('Currencies are not a same');
         }
         $this->amount += $price->getAmount();
@@ -42,7 +42,7 @@ final class Price
     }
 
     /**
-     * @phpstan-return TSerializedPrice
+     * @phpstan-return array{currency:string,amount:float}
      */
     public function __serialize(): array
     {

@@ -12,9 +12,9 @@ class Title
     public readonly string $id;
 
     public function __construct(
-        public readonly string | Html $title,
-        public readonly ?string $icon = null,
-        ?string $id = null,
+        ?string $id,
+        public readonly string|Html $title,
+        public readonly ?string $icon = null
     ) {
         $this->id = $id ?? Random::generate(10, 'a-z');
     }
