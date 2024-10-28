@@ -7,8 +7,8 @@ namespace Fykosak\Utils\DateTime;
 class Period
 {
     public function __construct(
-        public readonly \DateTimeImmutable $begin,
-        public readonly \DateTimeImmutable $end,
+        public readonly \DateTimeInterface $begin,
+        public readonly \DateTimeInterface $end,
     ) {
         if ($this->begin > $this->end) {
             throw new \LogicException();
