@@ -7,8 +7,8 @@ namespace Fykosak\Utils\DateTime;
 class Period
 {
     public function __construct(
-        public readonly \DateTimeImmutable $begin,
-        public readonly \DateTimeImmutable $end,
+        public readonly \DateTimeInterface $begin,
+        public readonly \DateTimeInterface $end,
     ) {
         if ($this->begin > $this->end) {
             throw new \LogicException();
@@ -34,22 +34,22 @@ class Period
     public function is(Phase $period, ?\DateTimeInterface $dateTime = null): bool
     {
         return match ($period) {
-            Phase::before => $this->isBefore($dateTime),
-            Phase::after => $this->isAfter($dateTime),
-            Phase::onGoing => $this->isOnGoing($dateTime)
+            Phase::Before => $this->isBefore($dateTime),
+            Phase::After => $this->isAfter($dateTime),
+            Phase::OnGoing => $this->isOnGoing($dateTime)
         };
     }
 
     public function getPhase(?\DateTimeInterface $dateTime = null): Phase
     {
         if ($this->isBefore($dateTime)) {
-            return Phase::before;
+            return Phase::Before;
         }
         if ($this->isAfter($dateTime)) {
-            return Phase::after;
+            return Phase::After;
         }
         if ($this->isOnGoing($dateTime)) {
-            return Phase::onGoing;
+            return Phase::OnGoing;
         }
         throw new \LogicException();
     }
