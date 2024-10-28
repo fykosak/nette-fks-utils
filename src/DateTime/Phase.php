@@ -6,7 +6,7 @@ namespace Fykosak\Utils\DateTime;
 
 enum Phase
 {
-    case before;
-    case after;
-    case onGoing;
+    case Before;
+    case After;
+    case OnGoing;
 }
