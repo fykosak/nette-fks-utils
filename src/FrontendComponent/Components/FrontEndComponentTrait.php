@@ -58,7 +58,7 @@ trait FrontEndComponentTrait
     }
 
     /**
-     * @return string[]
+     * @return array<string, mixed>
      */
     protected function getResponseData(): array
     {
