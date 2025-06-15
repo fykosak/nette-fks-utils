@@ -4,20 +4,20 @@
   "type": "library",
   "license": "GPL-3.0-or-later",
   "require": {
-    "php": "8.1.*",
-    "nette/utils": "^v3.2.0",
-    "nette/di": "^3.0.0",
-    "nette/application": "^3.1.0",
-    "latte/latte": "^v2.10.0",
-    "nette/forms": "^v3.1.0",
-    "nette/http": "^v3.1.0",
+    "php": "^8.1.*",
+    "nette/utils": "*",
+    "nette/di": "*",
+    "nette/application": "*",
+    "latte/latte": "*",
+    "nette/forms": "*",
+    "nette/http": "*",
     "ext-pdo": "*",
     "ext-json": "*",
     "ext-gettext": "*"
   },
   "require-dev": {
     "squizlabs/php_codesniffer": "3.7.1",
-    "nette/tester": "^v2.4.0",
+    "nette/tester": "*",
     "phpstan/phpstan": "1.10.26"
   },
   "authors": [
