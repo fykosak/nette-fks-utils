@@ -57,7 +57,8 @@ abstract class AjaxComponent extends FrontEndComponent
                 fn(Message $value): array => $value->__toArray(),
                 $this->getLogger()->getMessages()
             ),
-            'data' => $this->getAjaxData()
+            'data' => $this->getAjaxData(),
+            'actions' => $this->actions->getActions(),
         ];
         $this->getLogger()->clear();
         return $data;
