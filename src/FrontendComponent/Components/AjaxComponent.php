@@ -6,6 +6,7 @@ namespace Fykosak\Utils\FrontendComponent\Components;
 
 use Fykosak\Utils\FrontendComponent\NetteActions\NetteActions;
 use Fykosak\Utils\FrontendComponent\Responses\AjaxResponse;
+use Fykosak\Utils\Logging\Message;
 use Nette\Application\AbortException;
 use Nette\Application\UI\InvalidLinkException;
 use Nette\DI\Container;
@@ -43,6 +44,25 @@ abstract class AjaxComponent extends FrontEndComponent
         $this->actions->addPresenterLink($key, $destination, $params);
     }
 
+    protected function getAjaxData(): mixed
+    {
+        return $this->getData();
+    }
+
+    protected function getAjaxResponseData(): array
+    {
+        $this->configure();
+        $data = [
+            'messages' => array_map(
+                fn(Message $value): array => $value->__toArray(),
+                $this->getLogger()->getMessages()
+            ),
+            'data' => $this->getAjaxData()
+        ];
+        $this->getLogger()->clear();
+        return $data;
+    }
+
     /**
      * @throws AbortException
      */
@@ -50,7 +70,7 @@ abstract class AjaxComponent extends FrontEndComponent
     {
         $response = new AjaxResponse();
         $response->setCode($code);
-        $response->setContent($this->getResponseData());
+        $response->setContent($this->getAjaxResponseData());
         $this->getPresenter()->sendResponse($response);
     }
 

@@ -27,7 +27,7 @@ abstract class DIComponent extends Control
         $this->translator = $translator;
     }
 
-    protected function createTemplate(): Template
+    protected function createTemplate(?string $class = null): Template
     {
         /** @var \Nette\Bridges\ApplicationLatte\Template $template */
         $template = parent::createTemplate();
