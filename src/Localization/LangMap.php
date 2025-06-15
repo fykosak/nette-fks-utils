@@ -44,7 +44,7 @@ class LangMap
     /**
      * @phpstan-return array<TLang,TValue>
      */
-    public function __serialize(): array
+    public function toArray(): array
     {
         return $this->variants;
     }
