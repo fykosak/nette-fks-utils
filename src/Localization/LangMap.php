@@ -6,7 +6,7 @@ namespace Fykosak\Utils\Localization;
 
 /**
  * @phpstan-template TLang of string
- * @phpstan-template TValue
+ * @phpstan-template-covariant TValue
  */
 class LangMap
 {
