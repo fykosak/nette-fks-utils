@@ -48,4 +48,27 @@ class LangMap
     {
         return $this->variants;
     }
+
+    /**
+     * @phpstan-template TNewValue
+     * @param callable(TValue,TLang):TNewValue $callback
+     * @return self<TLang,TNewValue>
+     */
+    public function map(callable $callback): self
+    {
+        $newValues = [];
+        foreach ($this->variants as $lang => $variant) {
+            $newValues[$lang] = $callback($variant, $lang);
+        }
+        return new self($newValues);
+    }
+    /**
+     * @param callable(TValue,TLang):void $callback
+     */
+    public function forEach(callable $callback): void
+    {
+        foreach ($this->variants as $lang => &$variant) {
+            $callback($variant, $lang);
+        }
+    }
 }
