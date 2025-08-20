@@ -71,4 +71,20 @@ class LangMap
             $callback($variant, $lang);
         }
     }
+
+    /**
+     * @phpstan-template TNewValue
+     * @phpstan-template TSecondValue
+     * @param callable(TValue,TLang,TSecondValue):TNewValue $callback
+     * @phpstan-param self<TLang,TSecondValue> $secondMap
+     * @return self<TLang,TNewValue>
+     */
+    public function mapWith(callable $callback, self $secondMap): self
+    {
+        $newValues = [];
+        foreach ($this->variants as $lang => $variant) {
+            $newValues[$lang] = $callback($variant, $lang, $secondMap->get($lang));
+        }
+        return new self($newValues);
+    }
 }
