@@ -7,6 +7,10 @@ namespace Fykosak\Utils\Tests\BaseComponent;
 use Fykosak\Utils\Components\DIComponent;
 use Fykosak\Utils\Tests\DummyService;
 
+/**
+ * @phpstan-template TLang of string
+ * @phpstan-extends DIComponent<TLang>
+ */
 class DummyComponent extends DIComponent
 {
     public DummyService $dummyService;

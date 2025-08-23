@@ -4,16 +4,29 @@ declare(strict_types=1);
 
 namespace Fykosak\Utils\FrontendComponent\Responses;
 
-use Nette\Http\IResponse;
-use Nette\Http\IRequest;
 use Nette\Application\Response;
+use Nette\Http\IRequest;
+use Nette\Http\IResponse;
 use Nette\SmartObject;
 
+/**
+ * @phpstan-template TData
+ */
 final class AjaxResponse implements Response
 {
     use SmartObject;
 
-    private array $content = [];
+    /**
+     * @phpstan-var array{
+     *      messages: array{
+     *          text: string,
+     *          level: string,
+     *      }[],
+     *      data: TData,
+     *      actions: array<string,string>,
+     *  } $content
+     */
+    private array $content;
     private int $code = IResponse::S200_OK;
 
     final public function getContentType(): string
@@ -26,6 +39,16 @@ final class AjaxResponse implements Response
         $this->code = $code;
     }
 
+    /**
+     * @phpstan-param  array{
+     *      messages: array{
+     *          text: string,
+     *          level: string,
+     *      }[],
+     *      data: TData,
+     *      actions: array<string,string>,
+     *  } $content
+     */
     public function setContent(array $content): void
     {
         $this->content = $content;

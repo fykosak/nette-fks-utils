@@ -12,7 +12,13 @@ use Nette\Application\UI\InvalidLinkException;
 use Nette\DI\Container;
 use Nette\Http\IRequest;
 use Nette\Http\IResponse;
+use Nette\InvalidStateException;
 
+/**
+ * @phpstan-template TData of mixed
+ * @phpstan-template TLang of string
+ * @phpstan-extends FrontEndComponent<TLang>
+ */
 abstract class AjaxComponent extends FrontEndComponent
 {
     private IRequest $request;
@@ -31,6 +37,7 @@ abstract class AjaxComponent extends FrontEndComponent
 
     /**
      * @throws InvalidLinkException
+     * @phpstan-param array<string,scalar> $params
      */
     final public function addAction(string $key, string $destination, array $params = []): void
     {
@@ -38,6 +45,7 @@ abstract class AjaxComponent extends FrontEndComponent
     }
     /**
      * @throws InvalidLinkException
+     * @phpstan-param array<string,scalar> $params
      */
     final public function addPresenterLink(string $key, string $destination, array $params = []): void
     {
@@ -49,6 +57,16 @@ abstract class AjaxComponent extends FrontEndComponent
         return $this->getData();
     }
 
+    /**
+     * @phpstan-return array{
+     *     messages: array{
+     *         text: string,
+     *         level: string,
+     *     }[],
+     *     data: TData,
+     *     actions: array<string,string>,
+     * }
+     */
     protected function getAjaxResponseData(): array
     {
         $this->configure();
@@ -72,7 +90,11 @@ abstract class AjaxComponent extends FrontEndComponent
         $response = new AjaxResponse();
         $response->setCode($code);
         $response->setContent($this->getAjaxResponseData());
-        $this->getPresenter()->sendResponse($response);
+        $presenter = $this->getPresenter();
+        if (!$presenter) {
+            throw new InvalidStateException();
+        }
+        $presenter->sendResponse($response);
     }
 
     final protected function getHttpRequest(): IRequest

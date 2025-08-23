@@ -38,7 +38,7 @@ class LangMap
      */
     public function get(string $lang): mixed
     {
-        return $this->variants[$lang] ?? null;
+        return $this->variants[$lang] ?? throw new \OutOfRangeException();
     }
 
     /**

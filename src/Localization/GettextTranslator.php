@@ -67,12 +67,10 @@ class GettextTranslator implements Translator
     }
 
     /**
-     * @param array|LangMap|string|null $message
-     * @param string|int $parameters
+     * @phpstan-param LangMap<TLang,string|\Stringable>|array<TLang,string|\Stringable>|string|null $message
      */
-    public function translate($message, ...$parameters): string
+    public function translate(string|\Stringable|LangMap|array|null $message, mixed ...$parameters): string
     {
-
         if ($message === '' || $message === null) {
             return '';
         }
@@ -83,7 +81,7 @@ class GettextTranslator implements Translator
             return (string)$message->get($this->lang);
         }
         if (isset($parameters[0])) {
-            return ngettext($message, $message, (int)$parameters[0]);
+            return ngettext($message, $message, (int)$parameters[0]); //@phpstan-ignore-line
         } else {
             return gettext($message);
         }

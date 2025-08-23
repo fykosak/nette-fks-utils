@@ -15,7 +15,8 @@ class FakeBootstrap
     public static function createContainer(): Container
     {
         Environment::setup();
-        $containerLoader = new ContainerLoader(__DIR__ . '/../tmp');
+        $containerLoader = new ContainerLoader(__DIR__ . '/../../tmp');
+        /** @phpstan-var class-string<Container> $class */
         $class = $containerLoader->load(function ($compiler) {
             $compiler->loadConfig(__DIR__ . '/../config.neon');
         });

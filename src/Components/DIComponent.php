@@ -12,11 +12,13 @@ use Nette\Application\UI\Template;
 use Nette\DI\Container;
 
 /**
+ * @phpstan-template TLang of string
  * @property \Nette\Bridges\ApplicationLatte\Template $template
  */
 abstract class DIComponent extends Control
 {
-    protected ?GettextTranslator $translator;
+    /** @phpstan-var GettextTranslator<TLang> */
+    protected GettextTranslator $translator;
 
     public function __construct(
         protected readonly Container $container
@@ -24,9 +26,12 @@ abstract class DIComponent extends Control
         $container->callInjects($this);
     }
 
+    /** @phpstan-param GettextTranslator<TLang>|null $translator */
     public function injectTranslator(?GettextTranslator $translator): void
     {
-        $this->translator = $translator;
+        if (isset($translator)) {
+            $this->translator = $translator;
+        }
     }
 
     protected function createTemplate(?string $class = null): Template
@@ -34,7 +39,7 @@ abstract class DIComponent extends Control
         /** @var \Nette\Bridges\ApplicationLatte\Template $template */
         $template = parent::createTemplate();
         $template->setTranslator($this->translator);
-        $template->translator = $this->translator;
+        $template->translator = $this->translator; //@phpstan-ignore-line
         return $template;
     }
 
@@ -46,7 +51,8 @@ abstract class DIComponent extends Control
         string|MessageLevel $type = 'info'
     ): \stdClass {
         if ($message instanceof LangMap) {
-            $message = $message->get($this->translator ? $this->translator->lang : 'en');
+            /** @var \Stringable|string|\stdClass $message */
+            $message = $this->translator->getVariant($message);//@phpstan-ignore-line
         }
         if ($type instanceof MessageLevel) {
             $type = $type->value;

@@ -10,9 +10,9 @@ final class MultiCurrencyPrice
     private array $prices = [];
 
     /**
-     * @param Price[]|null $prices
+     * @param Price[] $prices
      */
-    public function __construct(?array $prices = [])
+    public function __construct(array $prices = [])
     {
         foreach ($prices as $price) {
             $this->prices[$price->currency->value] = $price;

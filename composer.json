@@ -32,6 +32,9 @@
       "rm -rf test/tmp/",
       "vendor/bin/tester tests -p php -s -c tests/php.ini -j 1"
     ],
+    "testPHPStan": [
+      "vendor/bin/phpstan analyse -c phpstan.neon"
+    ],
     "testCoverage": [
       "rm -rf test/tmp/",
       "vendor/bin/tester tests -p php --coverage coverage.html --coverage-src src/ -s -c tests/php.ini -j 1"

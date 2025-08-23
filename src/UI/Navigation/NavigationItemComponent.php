@@ -9,6 +9,8 @@ use Fykosak\Utils\Components\DIComponent;
 /**
  * Compatible with bootstrap >=5.0
  * tested version (5.0,5.1)
+ * @phpstan-template TLang of string
+ * @phpstan-extends DIComponent<TLang>
  */
 class NavigationItemComponent extends DIComponent
 {

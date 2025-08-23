@@ -10,12 +10,12 @@ class NavItem
 {
     /**
      * @phpstan-param array<string,scalar> $linkParams
+     * @param NavItem[] $children
      */
     public function __construct(
         public readonly Title $title,
         public readonly string $destination = '#',
         public readonly array $linkParams = [],
-        /** @param NavItem[] $children */
         public readonly array $children = [],
         public readonly bool $active = false
     ) {
