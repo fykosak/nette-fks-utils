@@ -21,7 +21,7 @@ class LocalizedPageTitle extends LocalizedTitle
         ?string $id,
         LangMap $title,
         ?string $icon = null,
-        public readonly ?LangMap $subTitle = null
+        public ?LangMap $subTitle = null
     ) {
         parent::__construct($id, $title, $icon);
     }
