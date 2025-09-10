@@ -7,7 +7,11 @@
                href="#" id="{$id}"
                role="button" data-toggle="dropdown" aria-expanded="false"
                data-bs-toggle="dropdown">
-                {$item->title->toHtml(false)}
+                {if $item->title instanceof Fykosak\Utils\UI\LocalizedTitle}
+                    {$item->title->toHtml(false)|translate}
+                {else}
+                    {$item->title->toHtml(false)}
+                {/if}
             </a>
             <ul class="dropdown-menu" aria-labelledby="{$id}">
                 {foreach $item->children as $children}
@@ -15,7 +19,11 @@
                     <li>
                         <a class="{$children->active?'dropdown-item active':'dropdown-item'}"
                            href="{plink $children->destination,(expand)$children->linkParams}">
-                            {$children->title->toHtml(false)}
+                            {if $children->title instanceof Fykosak\Utils\UI\LocalizedTitle}
+                                {$children->title->toHtml(false)|translate}
+                            {else}
+                                {$children->title->toHtml(false)}
+                            {/if}
                         </a>
                     </li>
                 {/foreach}
@@ -23,9 +31,12 @@
         </li>
     {else}
         <li class="nav-item">
-            <a class="nav-link" href="{plink $item->destination,(expand)$item->linkParams}"
-               title="{$item->title->title}">
-                {$item->title->toHtml(false)}
+            <a class="nav-link" href="{plink $item->destination,(expand)$item->linkParams}">
+                {if $item->title instanceof Fykosak\Utils\UI\LocalizedTitle}
+                    {$item->title->toHtml(false)|translate}
+                {else}
+                    {$item->title->toHtml(false)}
+                {/if}
             </a>
         </li>
     {/if}
