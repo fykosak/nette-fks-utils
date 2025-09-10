@@ -51,7 +51,7 @@ abstract class DIComponent extends Control
         string|MessageLevel $type = 'info'
     ): \stdClass {
         if ($message instanceof LangMap) {
-            /** @var \Stringable|string|\stdClass $message */
+            /** @var \Stringable|string|\stdClass  $message */
             $message = $this->translator->getVariant($message);//@phpstan-ignore-line
         }
         if ($type instanceof MessageLevel) {
