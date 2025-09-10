@@ -9,11 +9,13 @@ use Nette\DI\Container;
 use Nette\Utils\Html;
 
 /**
+ * @phpstan-template TData of mixed
  * @phpstan-template TLang of string
  * @phpstan-extends DIComponent<TLang>
  */
 abstract class FrontEndComponent extends DIComponent
 {
+    /** @phpstan-use FrontEndComponentTrait<TData> */
     use FrontEndComponentTrait;
 
     public function __construct(Container $container, string $frontendId)

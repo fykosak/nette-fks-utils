@@ -17,7 +17,7 @@ use Nette\InvalidStateException;
 /**
  * @phpstan-template TData of mixed
  * @phpstan-template TLang of string
- * @phpstan-extends FrontEndComponent<TLang>
+ * @phpstan-extends FrontEndComponent<TData,TLang>
  */
 abstract class AjaxComponent extends FrontEndComponent
 {
@@ -52,6 +52,9 @@ abstract class AjaxComponent extends FrontEndComponent
         $this->actions->addPresenterLink($key, $destination, $params);
     }
 
+    /**
+     * @phpstan-return TData
+     */
     protected function getAjaxData(): mixed
     {
         return $this->getData();

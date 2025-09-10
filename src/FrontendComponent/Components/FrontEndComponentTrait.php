@@ -10,6 +10,9 @@ use Nette\Application\BadRequestException;
 use Nette\Forms\Controls\BaseControl;
 use Nette\Utils\Html;
 
+/**
+ * @phpstan-template TData of mixed
+ */
 trait FrontEndComponentTrait
 {
     private string $frontendId;
@@ -48,10 +51,10 @@ trait FrontEndComponentTrait
         return $logger;
     }
 
-    protected function getData(): mixed
-    {
-        return null;
-    }
+    /**
+     * @phpstan-return TData
+     */
+    abstract protected function getData(): mixed;
 
     protected function configure(): void
     {
