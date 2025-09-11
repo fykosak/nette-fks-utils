@@ -23,7 +23,7 @@ class PageTitle extends Title
         if ($includeSubTitle && $this->subTitle) {
             $container->addHtml(
                 Html::el('small')
-                    ->addAttributes(['class' => 'ml-2 ms-2 text-secondary small'])
+                    ->addAttributes(['class' => 'ms-2 small'])
                     ->addText($this->subTitle)
             );
         }
