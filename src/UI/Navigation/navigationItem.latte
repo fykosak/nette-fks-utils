@@ -1,4 +1,5 @@
 {varType Fykosak\Utils\UI\Navigation\NavItem $item}
+{varType Fykosak\Utils\Localization\GettextTranslator $translator}
 {block content}
     {if count($item->children)}
         {var $id = $item->title->id??Nette\Utils\Random::generate()}
@@ -8,7 +9,7 @@
                role="button" data-toggle="dropdown" aria-expanded="false"
                data-bs-toggle="dropdown">
                 {if $item->title instanceof Fykosak\Utils\UI\LocalizedTitle}
-                    {$item->title->toHtml(false)|translate}
+                    {$translator->getVariant($item->title->toHtml(false))}
                 {else}
                     {$item->title->toHtml(false)}
                 {/if}
@@ -20,7 +21,7 @@
                         <a class="{$children->active?'dropdown-item active':'dropdown-item'}"
                            href="{plink $children->destination,(expand)$children->linkParams}">
                             {if $children->title instanceof Fykosak\Utils\UI\LocalizedTitle}
-                                {$children->title->toHtml(false)|translate}
+                                {$translator->getVariant($children->title->toHtml(false))}
                             {else}
                                 {$children->title->toHtml(false)}
                             {/if}
@@ -33,7 +34,7 @@
         <li class="nav-item">
             <a class="nav-link" href="{plink $item->destination,(expand)$item->linkParams}">
                 {if $item->title instanceof Fykosak\Utils\UI\LocalizedTitle}
-                    {$item->title->toHtml(false)|translate}
+                    {$translator->getVariant($item->title->toHtml(false))}
                 {else}
                     {$item->title->toHtml(false)}
                 {/if}
