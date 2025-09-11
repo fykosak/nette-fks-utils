@@ -19,11 +19,12 @@ class PageTitle extends Title
 
     public function toHtml(bool $includeSubTitle = false): Html
     {
-        $container = parent::toHtml();
+        $container = Html::el('');
+        $container->addHtml(parent::toHtml());
         if ($includeSubTitle && $this->subTitle) {
             $container->addHtml(
                 Html::el('small')
-                    ->addAttributes(['class' => 'ms-2 small'])
+                    ->addAttributes(['class' => 'ms-2 fks-subtitle'])
                     ->addText($this->subTitle)
             );
         }

@@ -27,11 +27,12 @@ class Title
                 Html::el('i')->addAttributes(
                     [
                         'id' => $this->id,
-                        'class' => $this->icon . ' mr-2 me-2',
+                        'class' => $this->icon . ' me-2',
                     ]
                 )
             );
         }
+        $container->addAttributes(['class' => 'fks-title']);
         $container->addText($this->title);
         return $container;
     }

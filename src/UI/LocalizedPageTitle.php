@@ -31,11 +31,14 @@ class LocalizedPageTitle extends LocalizedTitle
         $title = parent::toHtml();
         if (isset($this->subTitle) && $includeSubTitle) {
             return $title->mapWith(function (Html $variant, string $lang, Html|string $subTitle): Html {
-                return $variant->addHtml(
+                $container = Html::el('');
+                $container->addHtml($variant);
+                $container->addHtml(
                     Html::el('small')
-                        ->addAttributes(['class' => 'ml-2 ms-2 text-secondary small'])
+                        ->addAttributes(['class' => 'ms-2 fks-subtitle'])
                         ->addText($subTitle)
                 );
+                return $container;
             }, $this->subTitle);
         }
         return $title;
