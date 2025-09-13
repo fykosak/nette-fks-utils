@@ -14,14 +14,15 @@ use Nette\Utils\Random;
 class LocalizedTitle
 {
     public readonly string $id;
-
     /**
      * @phpstan-param LangMap<TLang,string|Html> $title
+     * @phpstan-param LangMap<TLang,string|Html>|null $subTitle
      */
     public function __construct(
         ?string $id,
         public readonly LangMap $title,
-        public readonly ?string $icon = null
+        public readonly ?string $icon = null,
+        public ?LangMap $subTitle = null
     ) {
         $this->id = $id ?? Random::generate(10, 'a-z');
     }
@@ -29,21 +30,39 @@ class LocalizedTitle
     /**
      * @phpstan-return LangMap<TLang,Html>
      */
-    public function toHtml(): LangMap
+    public function toHtml(bool $includeSubTitle = false): LangMap
     {
-        return $this->title->map(function (string|Html $variant): Html {
+        $title = $this->title->map(function (string|Html $variant): Html {
             $container = Html::el('span');
             if ($this->icon) {
-                $container->addHtml(
-                    Html::el('i')->addAttributes([
-                        'id' => $this->id,
-                        'class' => $this->icon . ' me-2',
-                    ])
-                );
+                $container->addHtml($this->createIcon());
             }
             $container->addAttributes(['class' => 'fks-title']);
             $container->addText($variant);
             return $container;
         });
+        if (isset($this->subTitle) && $includeSubTitle) {
+            return $title->mapWith(function (Html $variant, string $lang, Html|string $subTitle): Html {
+                $container = Html::el('');
+                $container->addHtml($variant);
+                $container->addHtml(
+                    Html::el('small')
+                        ->addAttributes(['class' => 'ms-2 fks-subtitle'])
+                        ->addText($subTitle)
+                );
+                return $container;
+            }, $this->subTitle);
+        }
+        return $title;
+    }
+
+    public function createIcon(): Html
+    {
+        return Html::el('i')->addAttributes(
+            [
+                'id' => $this->id,
+                'class' => $this->icon . ' me-2',
+            ]
+        );
     }
 }

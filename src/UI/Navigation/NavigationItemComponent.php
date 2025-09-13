@@ -14,6 +14,9 @@ use Fykosak\Utils\Components\DIComponent;
  */
 class NavigationItemComponent extends DIComponent
 {
+    /**
+     * @phpstan-param NavItem<TLang> $item
+     */
     public function render(NavItem $item): void
     {
         $this->template->render(__DIR__ . DIRECTORY_SEPARATOR . 'navigationItem.latte', ['item' => $item]);
