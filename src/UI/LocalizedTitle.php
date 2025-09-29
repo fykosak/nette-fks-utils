@@ -11,17 +11,17 @@ use Nette\Utils\Random;
 /**
  * @phpstan-template TLang of string
  */
-class LocalizedTitle
+readonly class LocalizedTitle
 {
-    public readonly string $id;
+    public string $id;
     /**
      * @phpstan-param LangMap<TLang,string|Html> $title
      * @phpstan-param LangMap<TLang,string|Html>|null $subTitle
      */
     public function __construct(
         ?string $id,
-        public readonly LangMap $title,
-        public readonly ?string $icon = null,
+        public LangMap $title,
+        public ?string $icon = null,
         public ?LangMap $subTitle = null
     ) {
         $this->id = $id ?? Random::generate(10, 'a-z');

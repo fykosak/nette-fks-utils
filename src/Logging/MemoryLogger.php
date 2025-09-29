@@ -4,13 +4,17 @@ declare(strict_types=1);
 
 namespace Fykosak\Utils\Logging;
 
+/**
+ * @phpstan-template TLang of string = string
+ * @phpstan-implements Logger<TLang>
+ */
 class MemoryLogger implements Logger
 {
-    /** @var Message[] */
+    /** @var (Message|LocalizedMessage<TLang>)[] */
     private array $messages = [];
 
     /**
-     * @return Message[]
+     * @return (Message|LocalizedMessage<TLang>)[]
      */
     public function getMessages(): array
     {
@@ -22,7 +26,10 @@ class MemoryLogger implements Logger
         $this->messages = [];
     }
 
-    public function log(Message $message): void
+    /**
+     * @phpstan-param Message|LocalizedMessage<TLang> $message
+     */
+    public function log(Message|LocalizedMessage $message): void
     {
         $this->messages[] = $message;
     }

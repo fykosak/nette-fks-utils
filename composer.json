@@ -4,7 +4,7 @@
   "type": "library",
   "license": "GPL-3.0-or-later",
   "require": {
-    "php": ">=8.1",
+    "php": ">=8.3",
     "nette/utils": "v3.* | v4.*",
     "nette/di": "v3.*",
     "nette/application": "v3.*",
@@ -18,7 +18,7 @@
   "require-dev": {
     "squizlabs/php_codesniffer": "3.7.1",
     "nette/tester": "*",
-    "phpstan/phpstan": "1.10.26"
+    "phpstan/phpstan": "2.1.29"
   },
   "authors": [
     {

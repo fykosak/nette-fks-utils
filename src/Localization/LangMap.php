@@ -8,19 +8,14 @@ namespace Fykosak\Utils\Localization;
  * @phpstan-template TLang of string
  * @phpstan-template-covariant TValue
  */
-class LangMap
+readonly class LangMap
 {
-    /**
-     * @phpstan-var array<TLang,TValue>
-     */
-    protected array $variants;
-
     /**
      * @phpstan-param array<TLang,TValue> $variants
      */
-    public function __construct(array $variants)
-    {
-        $this->variants = $variants;
+    public function __construct(
+        protected array $variants
+    ) {
     }
 
     /**

@@ -7,14 +7,14 @@ namespace Fykosak\Utils\UI;
 use Nette\Utils\Html;
 use Nette\Utils\Random;
 
-class Title
+readonly class Title
 {
-    public readonly string $id;
+    public string $id;
 
     public function __construct(
         ?string $id,
-        public readonly string|Html $title,
-        public readonly ?string $icon = null,
+        public string|Html $title,
+        public ?string $icon = null,
         public string|Html|null $subTitle = null
     ) {
         $this->id = $id ?? Random::generate(10, 'a-z');

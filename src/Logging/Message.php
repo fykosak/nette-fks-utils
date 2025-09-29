@@ -6,11 +6,11 @@ namespace Fykosak\Utils\Logging;
 
 use Nette\Utils\Html;
 
-class Message
+readonly class Message
 {
     public function __construct(
-        public readonly string|Html $text,
-        public readonly MessageLevel $level
+        public string|Html $text,
+        public MessageLevel $level
     ) {
     }
 

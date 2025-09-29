@@ -6,6 +6,7 @@ namespace Fykosak\Utils\FrontendComponent\Components;
 
 use Fykosak\Utils\FrontendComponent\NetteActions\NetteActions;
 use Fykosak\Utils\FrontendComponent\Responses\AjaxResponse;
+use Fykosak\Utils\Logging\LocalizedMessage;
 use Fykosak\Utils\Logging\Message;
 use Nette\Application\AbortException;
 use Nette\Application\UI\InvalidLinkException;
@@ -63,7 +64,7 @@ abstract class AjaxComponent extends FrontEndComponent
     /**
      * @phpstan-return array{
      *     messages: array{
-     *         text: string,
+     *         text: string|array<TLang,string>,
      *         level: string,
      *     }[],
      *     data: TData,
@@ -75,7 +76,7 @@ abstract class AjaxComponent extends FrontEndComponent
         $this->configure();
         $data = [
             'messages' => array_map(
-                fn(Message $value): array => $value->__toArray(),
+                fn(Message|LocalizedMessage $value): array => $value->__toArray(),
                 $this->getLogger()->getMessages()
             ),
             'data' => $this->getAjaxData(),

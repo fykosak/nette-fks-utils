@@ -15,7 +15,7 @@ use Nette\Utils\Html;
  */
 abstract class FrontEndComponent extends DIComponent
 {
-    /** @phpstan-use FrontEndComponentTrait<TData> */
+    /** @phpstan-use FrontEndComponentTrait<TData,TLang> */
     use FrontEndComponentTrait;
 
     public function __construct(Container $container, string $frontendId)

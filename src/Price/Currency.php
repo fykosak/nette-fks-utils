@@ -22,8 +22,8 @@ enum Currency: string
         $number = number_format(
             $amount,
             2,
-            localeconv()['decimal_point'] ?: '.',
-            localeconv()['thousands_sep'] ?: ''
+            localeconv()['decimal_point'] ?: '.', // @phpstan-ignore-line
+            localeconv()['thousands_sep'] ?: '' // @phpstan-ignore-line
         );
         return $number
             . "\u{205F}"

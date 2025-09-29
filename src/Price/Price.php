@@ -4,36 +4,26 @@ declare(strict_types=1);
 
 namespace Fykosak\Utils\Price;
 
-final class Price
+final readonly class Price
 {
-    private float $amount;
-
     public function __construct(
-        public readonly Currency $currency,
-        ?float $amount = null
+        public Currency $currency,
+        public float $amount = 0.0
     ) {
-        $this->amount = $amount ?? 0;
     }
 
     /**
      * @throws \LogicException
      */
-    public function add(Price $price): void
+    public function add(Price|float $price): self
     {
-        if ($this->currency !== $price->currency) {
-            throw new \LogicException('Currencies are not a same');
+        if ($price instanceof Price) {
+            if ($this->currency !== $price->currency) {
+                throw new \LogicException('Currencies are not a same');
+            }
+            return new self($this->currency, $this->amount + $price->amount);
         }
-        $this->amount += $price->getAmount();
-    }
-
-    public function getAmount(): float
-    {
-        return $this->amount;
-    }
-
-    public function addAmount(float $amount): void
-    {
-        $this->amount += $amount;
+        return new self($this->currency, $this->amount + $price);
     }
 
     public function __toString(): string

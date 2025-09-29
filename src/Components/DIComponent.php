@@ -44,7 +44,7 @@ abstract class DIComponent extends Control
     }
 
     /**
-     * @phpstan-param \Stringable|string|\stdClass|LangMap<'cs'|'en',\Stringable|string|\stdClass> $message
+     * @phpstan-param \Stringable|string|\stdClass|LangMap<TLang,\Stringable|string|\stdClass> $message
      */
     public function flashMessage(
         \Stringable|string|\stdClass|LangMap $message,
@@ -52,7 +52,7 @@ abstract class DIComponent extends Control
     ): \stdClass {
         if ($message instanceof LangMap) {
             /** @var \Stringable|string|\stdClass  $message */
-            $message = $this->translator->getVariant($message);//@phpstan-ignore-line
+            $message = $this->translator->getVariant($message);
         }
         if ($type instanceof MessageLevel) {
             $type = $type->value;

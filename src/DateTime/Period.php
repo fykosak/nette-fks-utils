@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Fykosak\Utils\DateTime;
 
-class Period
+readonly class Period
 {
     public function __construct(
-        public readonly \DateTimeInterface $begin,
-        public readonly \DateTimeInterface $end,
+        public \DateTimeInterface $begin,
+        public \DateTimeInterface $end,
     ) {
         if ($this->begin > $this->end) {
             throw new \LogicException();

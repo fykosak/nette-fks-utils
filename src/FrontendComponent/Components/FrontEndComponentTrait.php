@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Fykosak\Utils\FrontendComponent\Components;
 
+use Fykosak\Utils\Logging\LocalizedMessage;
 use Fykosak\Utils\Logging\MemoryLogger;
 use Fykosak\Utils\Logging\Message;
 use Nette\Application\BadRequestException;
@@ -12,6 +13,7 @@ use Nette\Utils\Html;
 
 /**
  * @phpstan-template TData of mixed
+ * @phpstan-template TLang of string
  */
 trait FrontEndComponentTrait
 {
@@ -42,8 +44,12 @@ trait FrontEndComponentTrait
         }
     }
 
+    /**
+     * @phpstan-return MemoryLogger<TLang>
+     */
     protected function getLogger(): MemoryLogger
     {
+        /** @var MemoryLogger|null $logger */
         static $logger;
         if (!isset($logger)) {
             $logger = new MemoryLogger();
@@ -61,14 +67,20 @@ trait FrontEndComponentTrait
     }
 
     /**
-     * @return array<string, mixed>
+     * @phpstan-return array{
+     *      messages: array{
+     *          text: string|array<TLang,string>,
+     *          level: string,
+     *      }[],
+     *      data: TData,
+     *  }
      */
     protected function getResponseData(): array
     {
         $this->configure();
         $data = [
             'messages' => array_map(
-                fn(Message $value): array => $value->__toArray(),
+                fn(Message|LocalizedMessage $value): array => $value->__toArray(),
                 $this->getLogger()->getMessages()
             ),
             'data' => $this->getData(),

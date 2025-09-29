@@ -11,6 +11,7 @@ use Nette\SmartObject;
 
 /**
  * @phpstan-template TData
+ * @phpstan-template TLang of string
  */
 final class AjaxResponse implements Response
 {
@@ -19,7 +20,7 @@ final class AjaxResponse implements Response
     /**
      * @phpstan-var array{
      *      messages: array{
-     *          text: string,
+     *          text: array<TLang,string>|string,
      *          level: string,
      *      }[],
      *      data: TData,
@@ -42,7 +43,7 @@ final class AjaxResponse implements Response
     /**
      * @phpstan-param  array{
      *      messages: array{
-     *          text: string,
+     *          text: array<TLang,string>|string,
      *          level: string,
      *      }[],
      *      data: TData,
