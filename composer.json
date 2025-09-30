@@ -16,7 +16,7 @@
     "ext-gettext": "*"
   },
   "require-dev": {
-    "squizlabs/php_codesniffer": "3.7.1",
+    "squizlabs/php_codesniffer": "3.13.4",
     "nette/tester": "*",
     "phpstan/phpstan": "2.1.29"
   },
