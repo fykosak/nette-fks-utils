@@ -13,7 +13,7 @@ use Fykosak\Utils\UI\Title;
 readonly class NavItem
 {
     /**
-     * @phpstan-param array<string,scalar> $linkParams
+     * @phpstan-param array<string,scalar|null> $linkParams
      * @phpstan-param Title|LocalizedTitle<TLang> $title
      * @param NavItem<TLang>[] $children
      */
