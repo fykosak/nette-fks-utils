@@ -1,0 +1,99 @@
+{define container}
+    {varType Nette\Forms\Container|Fykosak\Utils\FormControl\ContainerWithOptions $container}
+    {varType Fykosak\Utils\Localization\GettextTranslator $translator}
+    {varType int $level}
+    {if $container instanceof Fykosak\Utils\FormControl\ContainerWithOptions}
+        {var array $attrs = array_filter($container->getOptions(),fn($value)=>preg_match('/^data-.*/',$value),ARRAY_FILTER_USE_KEY)}
+        {if $container->getOption('visible')??true}
+            {var string|null $label = $container->getOption('label')}
+            {var string|null $description = $container->getOption('description')}
+            {var string $className = $label?'col-12 callout card mb-3 referenced-container':'mb-3 referenced-container'}
+            {var string $id = Nette\Utils\Random::generate(10)}
+            <fieldset
+                    class="{$className}"
+                    n:snippet="'group-' . $container->getOption('id')"
+                    data-level={$level}
+                    n:attr="(expand) $attrs"
+            >
+                <div class="{$label?'card-header d-flex justify-content-between':''}">
+                        <div>
+                            {if $label}
+                                <h4>
+                                    {if $label instanceOf Fykosak\Utils\Localization\LangMap}
+                                        {$translator->getVariant($label)}
+                                    {else}
+                                        {$label}
+                                    {/if}
+                                </h4>
+                            {/if}
+                            {if $description}
+                                {if $description instanceOf Fykosak\Utils\Localization\LangMap}
+                                    {if $translator->getVariant($description)}
+                                        <div class="form-text"><i class="fas fa-info-circle me-2"></i>{$translator->getVariant($description)}</div>
+                                    {/if}
+                                {else}
+                                    <div class="form-text"><i class="fas fa-info-circle me-2"></i>{$description}</div>
+                                {/if}
+                            {/if}
+                        </div>
+                        {if $container->collapse}
+                        <button class="btn btn-outline-primary container-toggle"
+                                type="button"
+                                data-bs-toggle="collapse"
+                                data-bs-target="#{$id}"
+                                role="button"
+                                aria-expanded="false"
+                        >
+                                {_'Toogle'}
+                            </button>
+                        {/if}
+                </div>
+                {if $container->collapse}
+                    <div class="{$label?'card-body collapse':'mt-3'}" id="{$id}">
+                        {include subComponents container=>$container, level=>$level}
+                    </div>
+                {else}
+                    <div class="{$label?'card-body':''}">
+                        {include subComponents container=>$container, level=>$level}
+                    </div>
+                {/if}
+            </fieldset>
+        {/if}
+    {else}
+        {snippet 'group-' . $container->getName()}
+            <fieldset data-level={$level}>
+                {include subComponents container=>$container, level=>$level}
+            </fieldset>
+        {/snippet}
+    {/if}
+{/define}
+
+{define subComponents, Fykosak\Utils\FormControl\ContainerWithOptions $container,int $level}
+    {var $controls = []}
+    {foreach $container->getComponents() as $component}
+        {if $component instanceof Fykosak\Utils\FormControl\ContainerWithOptions}
+            {if $controls}
+                {include controls controls => $controls}
+                {php $controls = []}
+            {/if}
+            {formContainer $component}
+                {include container container => $component, level => $level + 1}
+            {/formContainer}
+        {else}
+            {php $controls[] = $component}
+        {/if}
+    {/foreach}
+    {if $controls}
+        {include controls controls => $controls}
+        {php $controls = []}
+    {/if}
+{/define}
+
+{form form}
+    {varType Nette\Application\UI\Form $form}
+    {snippet groupContainer}
+        {import layout.macros.latte}
+        {include errors from './meta.latte' form => $form}
+        {include container container => $form, level => 0}
+    {/snippet}
+{/form}

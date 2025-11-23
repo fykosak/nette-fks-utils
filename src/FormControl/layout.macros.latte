@@ -1,0 +1,51 @@
+
+{define buttonArray,Nette\Forms\Controls\Button[] $buttons}
+    {var $buttonRows = []}
+    {foreach $buttons as $button}
+        {if !isset($buttonRows[$button->getOption('row')])}
+            {php $buttonRows[$button->getOption('row')] = []}
+        {/if}
+        {php $buttonRows[$button->getOption('row')][] = $button}
+    {/foreach}
+    {php ksort($buttonRows)}
+    {foreach $buttonRows as $row}
+        {if $row}
+            <div class="col-12">
+                {foreach $row as $button}
+                    {include button from './button.latte' field => $button}
+                {/foreach}
+            </div>
+        {/if}
+    {/foreach}
+{/define}
+
+{define controls}
+    {varType Nette\Forms\Controls\BaseControl[] $controls}
+    {var $buttons = []}
+    {foreach $controls as $field}
+        {if method_exists($field,'getOption')}
+            {continueIf !($field->getOption('visible')??true)}
+            {if !$field instanceof Nette\Forms\Controls\Button}
+                {include buttonArray buttons => $buttons}
+                {php $buttons = []}
+            {/if}
+            {if $field instanceof Nette\Forms\Controls\Checkbox}
+                {include checkbox from './checkbox.latte' field => $field}
+            {elseif $field instanceof Nette\Forms\Controls\HiddenField}
+                {include hidden from './hideen.latte' field => $field}
+            {elseif $field instanceof Nette\Forms\Controls\RadioList}
+                {include radiolist from './radio.latte' field => $field}
+            {elseif $field instanceof Nette\Forms\Controls\Button}
+                {php $buttons[] = $field}
+            {else}
+                {switch $field->control->type}
+                    {case 'range'}
+                    {include range from './range.latte' field => $field}
+                    {default}
+                    {include plain from './plain.latte' field => $field}
+                {/switch}
+            {/if}
+        {/if}
+    {/foreach}
+    {include buttonArray buttons => $buttons}
+{/define}

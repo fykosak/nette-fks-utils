@@ -1,0 +1,5 @@
+{define button, Nette\Forms\Controls\Button $field}
+    {var string $fieldClass = (string)$field->getControlPrototype()->getAttribute('class')}
+    {php $fieldClass = preg_replace('/(^|\s)btn($|\s)/', '', $fieldClass)}
+    {input $field class:('btn ' . (\Nette\Utils\Strings::contains($fieldClass,'btn-') ? $fieldClass : 'btn-outline-primary'))}
+{/define}

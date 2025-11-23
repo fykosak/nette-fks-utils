@@ -1,0 +1,35 @@
+{varType Fykosak\Utils\Localization\GettextTranslator $translator}
+
+{define metadata, Nette\Forms\Controls\BaseControl $field}
+    {foreach $field->getErrors() as $error}
+        <div class="invalid-feedback">{$error}</div>
+    {/foreach}
+    {var string|Nette\Utils\Html|Fykosak\Utils\Localization\LangMap $description = $field->getOption('description')}
+    {if $description}
+        {if $description instanceOf Fykosak\Utils\Localization\LangMap}
+            {if $translator->getVariant($description)}
+                <div class="form-text"><i class="fas fa-info-circle me-2"></i>{$translator->getVariant($description)}
+                </div>
+            {/if}
+        {else}
+            <div class="form-text"><i class="fas fa-info-circle me-2"></i>{$description}</div>
+        {/if}
+    {/if}
+    {var Fykosak\Utils\Localization\LangMap|null $reason = $field->getOption('reason')}
+    {if $reason}
+        <div class="form-text"><i class="fas fa-user-lock me-2"></i>{$translator->getVariant($reason)}</div>
+    {/if}
+{/define}
+
+{define errors}
+    {var array $fieldErrors = []}
+    {foreach $form->getControls() as $cont}
+        {varType Nette\Forms\Controls\BaseControl $cont}
+        {foreach $cont->getErrors() as $error}
+            {php $fieldErrors[$error] = 1}
+        {/foreach}
+    {/foreach}
+    {foreach $form->getErrors() as $error}
+        <div n:if="!isset($fieldErrors[$error])" class="alert alert-danger">{$error}</div>
+    {/foreach}
+{/define}
