@@ -1,0 +1,9 @@
+{define checkbox,Nette\Forms\Controls\Checkbox $field}
+    <div n:attr="(expand) Fykosak\Utils\FormControl\FormControl::buildContainerAttributes($field)">
+        <div class="form-check">
+            {$field->getControlPart()->setAttribute('class','form-check-input ' . $field->getControlPrototype()->class)}
+            {$field->getLabelPart()->setAttribute('class','form-check-label ' . $field->getLabelPrototype()->class)}
+        </div>
+        {include metadata from './meta.latte' field => $field}
+    </div>
+{/define}

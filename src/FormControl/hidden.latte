@@ -1,0 +1,9 @@
+{define hidden}
+    {varType Nette\Forms\Controls\HiddenField $field}
+    <div n:attr="(expand) Fykosak\Utils\FormControl\FormControl::buildContainerAttributes($field)">
+        <div n:tag-if="$field->hasErrors()">
+            {input $field}
+            {include metadata from './meta.latte' field => $field}
+        </div>
+    </div>
+{/define}

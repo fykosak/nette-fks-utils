@@ -1,0 +1,7 @@
+{define plain, Nette\Forms\Controls\TextInput $field}
+    <div n:attr="(expand) Fykosak\Utils\FormControl\FormControl::buildContainerAttributes($field)">
+        {label $field class: 'form-label'/}
+            {input $field class: 'form-control ' . ($field->hasErrors()?'is-invalid ':'') . $field->getControlPrototype()->class, 'required'=>null}
+            {include metadata from './meta.latte' field => $field}
+    </div>
+{/define}
