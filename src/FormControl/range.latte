@@ -2,6 +2,6 @@
     <div n:attr="(expand) Fykosak\Utils\FormControl\FormControl::buildContainerAttributes($field,'form-range')">
         {label $field class: 'form-label'/}
             {input $field class: 'form-control ' . ($field->hasErrors()?'is-invalid ':'') . $field->getControlPrototype()->class}
-            {include metadata from './metadata.latte' field => $field}
+            {include metadata from './meta.latte' field => $field}
     </div>
 {/define}
