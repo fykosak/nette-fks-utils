@@ -54,7 +54,7 @@ class GettextTranslator implements Translator
 
     /**
      * @phpstan-template TValue
-     * @phpstan-param array<TLang,TValue>|LangMap<TLang,TValue> $map
+     * @phpstan-param array<TLang|"",TValue>|LangMap<TLang,TValue> $map
      * @phpstan-return TValue
      */
     public function getVariant(array|LangMap $map): mixed
@@ -62,12 +62,12 @@ class GettextTranslator implements Translator
         if ($map instanceof LangMap) {
             return $map->get($this->lang);
         } else {
-            return $map[$this->lang];
+            return $map[$this->lang] ?? $map[''] ?? throw new \OutOfRangeException();
         }
     }
 
     /**
-     * @phpstan-param LangMap<TLang,string|\Stringable>|array<TLang,string|\Stringable>|string|null $message
+     * @phpstan-param LangMap<TLang,string|\Stringable>|array<TLang|"",string|\Stringable>|string|null $message
      */
     public function translate(string|\Stringable|LangMap|array|null $message, mixed ...$parameters): string
     {

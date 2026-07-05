@@ -11,7 +11,7 @@ namespace Fykosak\Utils\Localization;
 readonly class LangMap
 {
     /**
-     * @phpstan-param array<TLang,TValue> $variants
+     * @phpstan-param array<TLang,TValue> | array<"",TValue> $variants
      */
     public function __construct(
         protected array $variants
@@ -33,10 +33,13 @@ readonly class LangMap
      */
     public function get(string $lang): mixed
     {
-        if (!array_key_exists($lang, $this->variants)) {
-            throw new \OutOfRangeException();
+        if (array_key_exists($lang, $this->variants)) {
+            return $this->variants[$lang];
         }
-        return $this->variants[$lang];
+        if (array_key_exists('', $this->variants)) {
+            return $this->variants[''];
+        }
+        throw new \OutOfRangeException();
     }
 
     /**
@@ -49,7 +52,7 @@ readonly class LangMap
 
     /**
      * @phpstan-template TNewValue
-     * @param callable(TValue,TLang):TNewValue $callback
+     * @param callable(TValue,TLang|""):TNewValue $callback
      * @return self<TLang,TNewValue>
      */
     public function map(callable $callback): self
@@ -61,7 +64,7 @@ readonly class LangMap
         return new self($newValues);
     }
     /**
-     * @param callable(TValue,TLang):void $callback
+     * @param callable(TValue,TLang|""):void $callback
      */
     public function forEach(callable $callback): void
     {
@@ -73,7 +76,7 @@ readonly class LangMap
     /**
      * @phpstan-template TNewValue
      * @phpstan-template TSecondValue
-     * @param callable(TValue,TLang,TSecondValue):TNewValue $callback
+     * @param callable(TValue,TLang|"",TSecondValue):TNewValue $callback
      * @phpstan-param self<TLang,TSecondValue> $secondMap
      * @return self<TLang,TNewValue>
      */
