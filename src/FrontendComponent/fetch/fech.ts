@@ -1,5 +1,5 @@
 import {DataResponse} from '../Responses/response';
-import {NetteActions} from '../NetteActions/nette-actions';
+import {NetteActions} from '../NetteActions/NetteActions';
 
 export async function netteFetch<ResponseData>(
     url: string,
