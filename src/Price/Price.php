@@ -26,6 +26,10 @@ final readonly class Price
         return new self($this->currency, $this->amount + $price);
     }
 
+    /**
+     * @deprecated use GettextTranslator::formatCurrency()
+     */
+    #[\Deprecated('use GettextTranslator::formatCurrency()')]
     public function __toString(): string
     {
         return $this->currency->format($this->amount);

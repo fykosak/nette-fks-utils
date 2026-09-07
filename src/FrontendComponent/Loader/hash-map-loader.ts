@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {FunctionComponent} from 'react';
 import {createRoot} from 'react-dom/client';
-import {NetteActions} from '../NetteActions/nette-actions';
+import {NetteActions} from '../NetteActions/NetteActions';
 
 export type mapRegisterCallback = (element: Element, frontendId: string, data: string, actions: NetteActions) => void;
 

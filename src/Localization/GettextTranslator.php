@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Fykosak\Utils\Localization;
 
+use Fykosak\Utils\Price\Price;
 use Nette\Localization\Translator;
 
 /**
@@ -52,9 +53,15 @@ class GettextTranslator implements Translator
         return array_keys($this->locales);
     }
 
+    public function formatCurrency(Price $price): string
+    {
+        $formater = new \NumberFormatter($this->locales[$this->lang], \NumberFormatter::CURRENCY);
+        return $formater->formatCurrency($price->amount, $price->currency->value);
+    }
+
     /**
      * @phpstan-template TValue
-     * @phpstan-param array<TLang,TValue>|LangMap<TLang,TValue> $map
+     * @phpstan-param array<TLang|"",TValue>|LangMap<TLang,TValue> $map
      * @phpstan-return TValue
      */
     public function getVariant(array|LangMap $map): mixed
@@ -62,12 +69,12 @@ class GettextTranslator implements Translator
         if ($map instanceof LangMap) {
             return $map->get($this->lang);
         } else {
-            return $map[$this->lang];
+            return $map[$this->lang] ?? $map[''] ?? throw new \OutOfRangeException();
         }
     }
 
     /**
-     * @phpstan-param LangMap<TLang,string|\Stringable>|array<TLang,string|\Stringable>|string|null $message
+     * @phpstan-param LangMap<TLang,string|\Stringable>|array<TLang|"",string|\Stringable>|string|null $message
      */
     public function translate(string|\Stringable|LangMap|array|null $message, mixed ...$parameters): string
     {
