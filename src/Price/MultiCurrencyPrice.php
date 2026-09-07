@@ -64,7 +64,7 @@ final readonly class MultiCurrencyPrice
     {
         $data = [];
         foreach ($this->prices as $price) {
-            $data[$price->currency->value] = $price->__serialize();
+            $data[$price->currency->value] = $price->amount;
         }
         return $data;
     }

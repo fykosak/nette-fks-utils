@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Fykosak\Utils\Localization;
 
+use Fykosak\Utils\Price\Price;
 use Nette\Localization\Translator;
 
 /**
@@ -50,6 +51,12 @@ class GettextTranslator implements Translator
     public function getSupportedLanguages(): array
     {
         return array_keys($this->locales);
+    }
+
+    public function formatCurrency(Price $price): string
+    {
+        $formater = new \NumberFormatter($this->locales[$this->lang], \NumberFormatter::CURRENCY);
+        return $formater->formatCurrency($price->amount, $price->currency->value);
     }
 
     /**
