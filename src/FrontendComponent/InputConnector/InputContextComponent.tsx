@@ -1,6 +1,6 @@
-import {InputContext} from './reducer';
 import * as React from 'react';
 import { useEffect, useState} from 'react';
+import {InputContext} from "./context";
 
 interface InputContextComponentProps {
     input: HTMLInputElement | HTMLSelectElement;
