@@ -14,7 +14,7 @@ interface ComponentDatum<OwnProps = unknown, Component extends FunctionComponent
     params: OwnProps;
 }
 
-export default class HashMapLoader {
+export default class Loader {
     private components: { [key: string]: ComponentDatum<unknown, FunctionComponent> } = {};
     private actionsComponents: { [key: string]: ComponentDatum<unknown, ActionComponent> } = {};
     private dataComponents: { [key: string]: ComponentDatum<unknown, DataComponent> } = {};
@@ -93,5 +93,18 @@ export default class HashMapLoader {
             throw new Error('App with "' + frontendId + '" is already registred.');
         }
         this.keys[frontendId] = true;
+    }
+
+    public run(): void {
+        document.querySelectorAll('.frontend-root,[data-frontend-root]').forEach((element: Element) => {
+            if (element.getAttribute('data-served')) {
+                return;
+            }
+            if (this.render(element)) {
+                element.setAttribute('data-served', '1');
+                return;
+            }
+            throw new Error('no match type');
+        });
     }
 }
