@@ -1,4 +1,3 @@
-
-export type MultiCurrencyPrice<TCurrency extends string>={
-    [currency in TCurrency]: number;
+export type MultiCurrencyPrice<TCurrency extends string, TNumber = number> = {
+    [currency in TCurrency]: TNumber;
 }
