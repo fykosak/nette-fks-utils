@@ -4,12 +4,17 @@ declare(strict_types=1);
 
 namespace Fykosak\Utils\DateTime;
 
+use Nette\InvalidStateException;
+
 readonly class Period
 {
     public function __construct(
-        public \DateTimeInterface $begin,
-        public \DateTimeInterface $end,
+        public ?\DateTimeInterface $begin,
+        public ?\DateTimeInterface $end,
     ) {
+        if (is_null($this->begin) && is_null($this->end)) {
+            throw new InvalidStateException();
+        }
         if ($this->begin > $this->end) {
             throw new \LogicException();
         }
@@ -17,18 +22,23 @@ readonly class Period
 
     public function isBefore(?\DateTimeInterface $dateTime = null): bool
     {
-        return $this->begin > ($dateTime ?? new \DateTimeImmutable());
+        if (isset($this->begin)) {
+            return $this->begin > ($dateTime ?? new \DateTimeImmutable());
+        }
+        return false;
     }
 
     public function isAfter(?\DateTimeInterface $dateTime = null): bool
     {
-        return $this->end < ($dateTime ?? new \DateTimeImmutable());
+        if (isset($this->end)) {
+            return $this->end < ($dateTime ?? new \DateTimeImmutable());
+        }
+        return false;
     }
 
     public function isOnGoing(?\DateTimeInterface $dateTime = null): bool
     {
-        return $this->begin <= ($dateTime ?? new \DateTimeImmutable())
-            && $this->end >= ($dateTime ?? new \DateTimeImmutable());
+        return !$this->isBefore($dateTime) && !$this->isAfter($dateTime);
     }
 
     public function is(Phase $period, ?\DateTimeInterface $dateTime = null): bool
@@ -48,14 +58,14 @@ readonly class Period
         if ($this->isAfter($dateTime)) {
             return Phase::After;
         }
-        if ($this->isOnGoing($dateTime)) {
-            return Phase::OnGoing;
-        }
-        throw new \LogicException();
+        return Phase::OnGoing;
     }
 
     public function duration(): \DateInterval
     {
+        if (is_null($this->begin) || is_null($this->end)) {
+            throw new \LogicException();
+        }
         return $this->end->diff($this->begin);
     }
 }
