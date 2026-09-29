@@ -6,7 +6,6 @@ namespace Fykosak\Utils\Price;
 
 final readonly class MultiCurrencyPrice
 {
-
     /**
      * @param array<value-of<Currency>,float> $prices
      */
