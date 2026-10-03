@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Fykosak\Utils\Price;
 
-final readonly class Price
+final class Price
 {
     public function __construct(
-        public Currency $currency,
+        public readonly Currency $currency,
         public float $amount = 0.0
     ) {
     }
@@ -21,18 +21,26 @@ final readonly class Price
             if ($this->currency !== $price->currency) {
                 throw new \LogicException('Currencies are not a same');
             }
-            return new self($this->currency, $this->amount + $price->amount);
+            $this->amount += $price->amount;
+
+        } else {
+            $this->amount += $price;
         }
-        return new self($this->currency, $this->amount + $price);
+        return $this;
     }
 
     /**
-     * @deprecated use GettextTranslator::formatCurrency()
+     * @throws \LogicException
      */
-    #[\Deprecated('use GettextTranslator::formatCurrency()')]
-    public function __toString(): string
+    public function cloneAdd(Price|float $price): self
     {
-        return $this->currency->format($this->amount);
+        if ($price instanceof Price) {
+            if ($this->currency !== $price->currency) {
+                throw new \LogicException('Currencies are not a same');
+            }
+            return new self($this->currency, $this->amount + $price->amount);
+        }
+        return new self($this->currency, $this->amount + $price);
     }
 
     /**

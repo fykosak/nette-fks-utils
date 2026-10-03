@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Fykosak\Utils\Price;
 
-final readonly class MultiCurrencyPrice
+final class MultiCurrencyPrice
 {
     /**
      * @param array<value-of<Currency>,float> $prices
@@ -42,23 +42,21 @@ final readonly class MultiCurrencyPrice
 
     public function add(self $multiPrice): self
     {
+        foreach ($this->prices as $key => $price) {
+            $currency = Currency::from($key);
+            $this->prices[$key] = $this->getAmount($currency) + $multiPrice->getAmount($currency);
+        }
+        return $this;
+    }
+
+    public function cloneAdd(self $multiPrice): self
+    {
         $data = [];
         foreach ($this->prices as $key => $price) {
             $currency = Currency::from($key);
             $data[$key] = $this->getAmount($currency) + $multiPrice->getAmount($currency);
         }
         return new self($data);
-    }
-
-    public function __toString(): string
-    {
-        $items = [];
-        foreach ($this->prices as $key => $price) {
-            $currency = Currency::from($key);
-            $price = $this->getPrice($currency);
-            $items[] = $price->__toString();
-        }
-        return join('/', $items);
     }
 
     public function __serialize(): array
