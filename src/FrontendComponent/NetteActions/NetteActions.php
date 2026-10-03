@@ -36,9 +36,6 @@ class NetteActions
     public function addPresenterLink(string $key, string $destination, array $params = []): void
     {
         $presenter = $this->component->getPresenter();
-        if (!$presenter) {
-            throw new InvalidStateException();
-        }
         $this->actions[$key] = $presenter->link($destination, $params);
     }
 

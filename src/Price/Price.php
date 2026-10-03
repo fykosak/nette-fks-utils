@@ -22,7 +22,6 @@ final class Price
                 throw new \LogicException('Currencies are not a same');
             }
             $this->amount += $price->amount;
-
         } else {
             $this->amount += $price;
         }

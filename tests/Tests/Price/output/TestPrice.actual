@@ -1,0 +1,4 @@
+Fykosak\Utils\Price\Price::__set_state(/* #aab3 */ [
+	'currency' => Fykosak\Utils\Price\Currency::CZK,
+	'amount' => 4.0,
+])

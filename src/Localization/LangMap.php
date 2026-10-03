@@ -47,6 +47,7 @@ readonly class LangMap
      */
     public function toArray(): array
     {
+        /** @phpstan-ignore return.type */
         return $this->variants;
     }
 
@@ -84,6 +85,7 @@ readonly class LangMap
     {
         $newValues = [];
         foreach ($this->variants as $lang => $variant) {
+            /** @phpstan-ignore argument.type */
             $newValues[$lang] = $callback($variant, $lang, $secondMap->get($lang));
         }
         return new self($newValues);
