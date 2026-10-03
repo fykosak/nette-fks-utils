@@ -32,6 +32,18 @@ final class MultiCurrencyPrice
         return new Price($currency, $this->getAmount($currency));
     }
 
+    /**
+     * @return Price[]
+     */
+    public function getPrices(): array
+    {
+        $items = [];
+        foreach ($this->prices as $key => $amount) {
+            $items[] = new Price(Currency::from($key), $amount);
+        }
+        return $items;
+    }
+
     public function getAmount(Currency $currency): float
     {
         if (isset($this->prices[$currency->value])) {
