@@ -20,6 +20,7 @@ class FakeBootstrap
         /** @phpstan-var class-string<Container> $class */
         $class = $containerLoader->load(function (Compiler $compiler) {
             $compiler->loadConfig(__DIR__ . '/../config.neon');
+            return null;
         });
 
         return new $class();

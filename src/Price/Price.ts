@@ -1,4 +1,4 @@
-export interface Price {
+export interface Price<TNumber = number> {
     currency: string;
-    amount: number;
+    amount: TNumber;
 }

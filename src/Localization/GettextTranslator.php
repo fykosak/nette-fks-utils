@@ -56,7 +56,34 @@ class GettextTranslator implements Translator
     public function formatCurrency(Price $price): string
     {
         $formater = new \NumberFormatter($this->locales[$this->lang], \NumberFormatter::CURRENCY);
+        /** @phpstan-ignore return.type */
         return $formater->formatCurrency($price->amount, $price->currency->value);
+    }
+
+    public function formatNumber(int|float $number): string
+    {
+        $formater = new \NumberFormatter($this->locales[$this->lang], \NumberFormatter::DECIMAL);
+        /** @phpstan-ignore return.type */
+        return $formater->format($number);
+    }
+
+    public function formatOrdinal(int $number): string
+    {
+        $formater = new \NumberFormatter($this->locales[$this->lang], \NumberFormatter::ORDINAL);
+        /** @phpstan-ignore return.type */
+        return $formater->format($number);
+    }
+
+    public function formatDateTime(string $format, \DateTimeInterface $dateTime): string
+    {
+        $formater = new \IntlDateFormatter(
+            $this->locales[$this->lang],
+            \IntlDateFormatter::FULL,
+            \IntlDateFormatter::FULL
+        );
+        $formater->setPattern($format);
+        /** @phpstan-ignore return.type */
+        return $formater->format($dateTime);
     }
 
     /**

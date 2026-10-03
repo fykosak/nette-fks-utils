@@ -1,0 +1,17 @@
+export enum Color {
+    FOF = 'fof',
+    FOL = 'fol',
+    FYKOS = 'fykos',
+    Vyfuk = 'vyfuk',
+    DSEF = 'dsef',
+    Ctyrboj = 'ctyrboj',
+    Naboj = 'naboj',
+    BSPrimary = 'primary',
+    BSSecondary = 'secondary',
+    BSSuccess = 'success',
+    BSInfo = 'info',
+    BSWarning = 'warning',
+    BSDanger = 'danger',
+    BSLight = 'light',
+    BSDark = 'dark',
+}

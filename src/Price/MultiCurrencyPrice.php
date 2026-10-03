@@ -4,17 +4,14 @@ declare(strict_types=1);
 
 namespace Fykosak\Utils\Price;
 
-final readonly class MultiCurrencyPrice
+final class MultiCurrencyPrice
 {
-    /** @var Price[] */
-    public array $prices;
-
     /**
-     * @param Price[] $prices
+     * @param array<value-of<Currency>,float> $prices
      */
-    public function __construct(array $prices = [])
-    {
-        $this->prices = array_values($prices);
+    public function __construct(
+        public array $prices = []
+    ) {
     }
 
     /**
@@ -25,47 +22,45 @@ final readonly class MultiCurrencyPrice
     {
         $data = [];
         foreach ($currencies as $currency) {
-            $data[] = new Price($currency);
+            $data[$currency->value] = 0.0;
         }
         return new self($data);
     }
 
     public function getPrice(Currency $currency): Price
     {
-        foreach ($this->prices as $price) {
-            if ($price->currency === $currency) {
-                return $price;
-            }
+        return new Price($currency, $this->getAmount($currency));
+    }
+
+    public function getAmount(Currency $currency): float
+    {
+        if (isset($this->prices[$currency->value])) {
+            return $this->prices[$currency->value];
         }
         throw new \OutOfRangeException(sprintf(_('Price for currency "%s" does not exists'), $currency->value));
     }
 
     public function add(self $multiPrice): self
     {
+        foreach ($this->prices as $key => $price) {
+            $currency = Currency::from($key);
+            $this->prices[$key] = $this->getAmount($currency) + $multiPrice->getAmount($currency);
+        }
+        return $this;
+    }
+
+    public function cloneAdd(self $multiPrice): self
+    {
         $data = [];
-        foreach ($this->prices as $price) {
-            $innerMultiPrice = $multiPrice->getPrice($price->currency);
-            $data[] = $price->add($innerMultiPrice);
+        foreach ($this->prices as $key => $price) {
+            $currency = Currency::from($key);
+            $data[$key] = $this->getAmount($currency) + $multiPrice->getAmount($currency);
         }
         return new self($data);
     }
 
-    public function __get(string $name): Price
-    {
-        return $this->getPrice(Currency::from(strtoupper($name)));
-    }
-
-    public function __toString(): string
-    {
-        return join('/', array_map(fn($price) => $price->__toString(), $this->prices));
-    }
-
     public function __serialize(): array
     {
-        $data = [];
-        foreach ($this->prices as $price) {
-            $data[$price->currency->value] = $price->amount;
-        }
-        return $data;
+        return $this->prices;
     }
 }

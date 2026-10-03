@@ -95,9 +95,6 @@ abstract class AjaxComponent extends FrontEndComponent
         $response->setCode($code);
         $response->setContent($this->getAjaxResponseData());
         $presenter = $this->getPresenter();
-        if (!$presenter) {
-            throw new InvalidStateException();
-        }
         $presenter->sendResponse($response);
     }
 

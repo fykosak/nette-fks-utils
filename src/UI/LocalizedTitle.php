@@ -32,6 +32,7 @@ readonly class LocalizedTitle
      */
     public function toHtml(bool $includeSubTitle = false): LangMap
     {
+        /** @phpstan-ignore argument.templateType */
         $title = $this->title->map(function (string|Html $variant): Html {
             $container = Html::el('span');
             if ($this->icon) {
